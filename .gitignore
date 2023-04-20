@@ -1,0 +1,11 @@
+/build/
+/_deps/
+CMakeCache.txt
+/CMakeFiles/
+/bin/
+/lib/
+*.cmake 
+Makefile
+testHarness
+/.vscode/
+*.out
