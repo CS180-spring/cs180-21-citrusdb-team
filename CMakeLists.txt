@@ -17,6 +17,7 @@ enable_testing()
 
 add_executable(
   testHarness
+  backend/readFile.cpp
   test.cpp
 )
 

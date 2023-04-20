@@ -7,21 +7,22 @@ bool isInDatabase(const string filepath) {
     return true;
 }
 
-
 string readFile(const string filepath){
     if (!isInDatabase(filepath))
         // maybe throw error instead of returning empty string
         return "";
     ifstream input;
     input.open(filepath);
-
-    input.close();
+    ostringstream sstr;
+    sstr << input.rdbuf();
+    return sstr.str();
 }
 
-int main(int argc, char** argv){
-    if (argc != 2)
-        cout << "Improper number of arguments. Send the filepath" << endl;
-        return 1;
-    cout << readFile(argv[1]) << flush;
-    return 0;
-}
+// int main(int argc, char** argv){
+//     if (argc != 2){
+//         cout << "Improper number of arguments. Send the filepath" << endl;
+//         return 1;
+//     }
+//     cout << readFile(argv[1]);
+//     return 0;
+// }

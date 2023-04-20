@@ -8,3 +8,4 @@ CMakeCache.txt
 Makefile
 testHarness
 /.vscode/
+*.out
