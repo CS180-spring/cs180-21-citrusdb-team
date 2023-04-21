@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <string>
 #include "backend/readFile.hpp"
+#include "backend/deleteFile.hpp"
 
 using namespace std;
 
@@ -59,3 +60,24 @@ TEST(ReadFile, BasicOperations)
         "}";
     EXPECT_EQ(raw, readFile("database/people.json"));
 }
+
+TEST(DeleteFile, BasicOperations) {
+    string file = "test.txt";
+    ofstream outFile(file);
+    outFile << "Test file opened";
+    outFile.close();
+
+    ifstream inFile(file);
+    ASSERT_TRUE(inFile.good());
+    inFile.close();
+
+    deleteDocument(file);
+
+    inFile.open(file);
+    ASSERT_FALSE(inFile.good());
+    inFile.close();
+}
+
+// TEST(COMPILE, StringTest) {
+//     EXPECT_EQ("\n", "%n");
+// }
