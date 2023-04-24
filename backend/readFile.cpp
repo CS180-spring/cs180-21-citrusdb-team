@@ -11,8 +11,8 @@ using namespace std;
 // people.json => .\database\people.json
 map<string, string> database;
 
-bool isInDatabase(const string filename) {
-    if (database.find(filename) == database.end()) {
+bool isInDatabase(const string fileName) {
+    if (database.find(fileName) == database.end()) {
         return false;
     }
     else {
@@ -20,14 +20,15 @@ bool isInDatabase(const string filename) {
     }
 }
 
-
-string readFile(const string filepath){
+//Commenting out this function because it's not necessary for this class specifically; this class is purely for checking whether a file exists in the database 
+/*string readFile(const string filepath){
     ifstream input;
     input.open(filepath);
     ostringstream sstr;
     sstr << input.rdbuf();
+    cout << sstr.str() << endl;
     return sstr.str();
-}
+}*/
 
 int main(int argc, char** argv) {
     // Try people.json when running the file
@@ -45,7 +46,13 @@ int main(int argc, char** argv) {
     for(map<string,string>::const_iterator it = database.begin(); it != database.end(); ++it) {
         cout << it->first << " : " << it->second << endl;
     }
-
-    cout << readFile(argv[1]) << endl;
+    
+    bool fileExists = isInDatabase(argv[1]);
+    if(fileExists) {
+    	cout << "File Exists: true" << endl;
+    }
+    else {
+    	cout << "File Exists: false" << endl;
+    } 
     return 0;
 }
