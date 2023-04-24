@@ -20,21 +20,13 @@ bool isInDatabase(const string filename) {
     }
 }
 
-string readFile(const string filename){
-    if (isInDatabase(filename)) {
-        cout << "File in database!" << endl;
-        
-        // Read file
-        string filePath = database.at(filename);
-        ifstream input;
-        input.open(filePath);
-        ostringstream sstr;
-        sstr << input.rdbuf();
-        return sstr.str();
-    }
-    else {
-        return "File not in database!";
-    }
+
+string readFile(const string filepath){
+    ifstream input;
+    input.open(filepath);
+    ostringstream sstr;
+    sstr << input.rdbuf();
+    return sstr.str();
 }
 
 int main(int argc, char** argv) {
