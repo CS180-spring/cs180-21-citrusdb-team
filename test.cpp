@@ -2,6 +2,7 @@
 #include <string>
 #include "backend/readFile.hpp"
 #include "backend/deleteFile.hpp"
+#include "backend/uploadFile.hpp"
 
 using namespace std;
 
@@ -81,3 +82,8 @@ TEST(DeleteFile, BasicOperations) {
 // TEST(COMPILE, StringTest) {
 //     EXPECT_EQ("\n", "%n");
 // }
+
+TEST(UploadFile, BasicOperations){
+    uploadFile("upload/people.json");
+    EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
+}

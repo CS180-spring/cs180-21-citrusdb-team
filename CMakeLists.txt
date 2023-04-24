@@ -19,6 +19,7 @@ add_executable(
   testHarness
   backend/readFile.cpp
   backend/deleteFile.cpp
+  backend/uploadFile.cpp
   test.cpp
 )
 
