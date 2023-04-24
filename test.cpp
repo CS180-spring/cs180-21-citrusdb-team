@@ -78,6 +78,40 @@ TEST(DeleteFile, BasicOperations) {
     inFile.close();
 }
 
-// TEST(COMPILE, StringTest) {
-//     EXPECT_EQ("\n", "%n");
-// }
+TEST(ReadAndDelete, BasicOperations) {
+    string input = "\t\nqwertyuiopasdfghjklzxcvbnm!@#$%^&*()_+1234567890";
+    string filename = "testRead.txt";
+    ofstream outFile(filename);
+    outFile << input;
+    outFile.close();
+
+    string read = readFile(filename);
+    EXPECT_EQ(read, input);
+
+    deleteDocument(filename);
+
+    ifstream inFile(filename);
+    ASSERT_FALSE(inFile.good());
+    inFile.close();
+
+
+}
+
+TEST(MultipleReadAndDelete, BasicOperations) { 
+    string input = string("\'\"?\a\t\n\n\n\nthe quick brown fox jumps over the lazy dog\n")+
+        "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
+    string filename = "multiRead.txt";
+    ofstream outFile(filename);
+    outFile << input;
+    outFile.close();
+    for (int i = 0; i < 100; i++){
+        string read = readFile(filename);
+        EXPECT_EQ(read, input);
+    }
+    deleteDocument(filename);
+
+    ifstream inFile(filename);
+    ASSERT_FALSE(inFile.good());
+    inFile.close();
+
+}
