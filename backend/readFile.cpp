@@ -8,9 +8,6 @@ bool isInDatabase(const string filepath) {
 }
 
 string readFile(const string filepath){
-    if (!isInDatabase(filepath))
-        // maybe throw error instead of returning empty string
-        return "";
     ifstream input;
     input.open(filepath);
     ostringstream sstr;
