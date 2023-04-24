@@ -114,4 +114,10 @@ TEST(MultipleReadAndDelete, BasicOperations) {
     ASSERT_FALSE(inFile.good());
     inFile.close();
 
+
+}
+
+TEST(UploadFile, BasicOperations){
+    uploadFile("upload/people.json");
+    EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
 }
