@@ -20,6 +20,7 @@ add_executable(
   backend/readFile.cpp
   backend/deleteFile.cpp
   backend/uploadFile.cpp
+  backend/entry.cpp
   test.cpp
 )
 
