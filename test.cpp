@@ -2,6 +2,8 @@
 #include <string>
 #include "backend/readFile.hpp"
 #include "backend/deleteFile.hpp"
+#include "backend/uploadFile.hpp"
+#include "backend/jsonStrings.hpp"
 
 using namespace std;
 
@@ -93,8 +95,6 @@ TEST(ReadAndDelete, BasicOperations) {
     ifstream inFile(filename);
     ASSERT_FALSE(inFile.good());
     inFile.close();
-
-
 }
 
 TEST(MultipleReadAndDelete, BasicOperations) { 
@@ -113,11 +113,54 @@ TEST(MultipleReadAndDelete, BasicOperations) {
     ifstream inFile(filename);
     ASSERT_FALSE(inFile.good());
     inFile.close();
-
-
 }
 
 TEST(UploadFile, BasicOperations){
     uploadFile("upload/people.json");
     EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
 }
+
+TEST(JsonStrings, BasicOperations)
+{
+    // input file
+    string inputFile = "database/people.json";
+
+    // expected output
+    vector<Entry<string>> expectedEntries = {
+        {
+            "abc123",
+            {
+                {"_id", "\"abc123\""},
+                {"first name", "\"Isaac\""},
+                {"last name", "\"Asimov\""},
+                {"birth date", "{\"Day\":2,\"Month\":\"January\",\"Year\":1920}"}
+            }
+        },
+        {
+            "xyz098",
+            {
+                {"_id", "\"xyz098\""},
+                {"first name", "\"Arthur\""},
+                {"middle initial", "\"C\""},
+                {"last name", "\"Clark\""},
+                {"famous books", "[\"2001: A Space Odyssey\",\"The Songs of Distant Earth\"]"}
+            }
+        }
+    };
+
+    // call the function
+    vector<Entry<string>> actualEntries;
+    jsonStrings(inputFile, actualEntries);
+
+    // compare the actual output to the expected output
+    ASSERT_EQ(actualEntries.size(), expectedEntries.size());
+    for (size_t i = 0; i < actualEntries.size(); ++i) {
+        ASSERT_EQ(actualEntries[i].id, expectedEntries[i].id);
+        ASSERT_EQ(actualEntries[i].attributes.size(), expectedEntries[i].attributes.size());
+        for (size_t j = 0; j < actualEntries[i].attributes.size(); ++j) {
+            ASSERT_EQ(actualEntries[i].attributes[j].name, expectedEntries[i].attributes[j].name);
+            ASSERT_EQ(actualEntries[i].attributes[j].value, expectedEntries[i].attributes[j].value);
+        }
+    }
+}
+
