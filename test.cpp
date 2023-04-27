@@ -133,7 +133,7 @@ TEST(JsonStrings, BasicOperations)
                 {"_id", "\"abc123\""},
                 {"first name", "\"Isaac\""},
                 {"last name", "\"Asimov\""},
-                {"birth date", "{\"Day\":2,\"Month\":\"January\",\"Year\":1920}"}
+                {"birth date", "{\"Year\":1920,\"Month\":\"January\",\"Day\":2}"}
             }
         },
         {
