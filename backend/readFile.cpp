@@ -1,6 +1,4 @@
 #include "readFile.hpp"
-#include <iostream>
-#include <map>
 
 using namespace std;
 
