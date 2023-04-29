@@ -13,7 +13,8 @@ bool Database::deleteDocument(const std::string filename) {
         std::cout << "Error: Database file not found" << std::endl;
         return false;
     }
-    remove(filename.c_str());
+    std::string filePath = ".\\database\\" + filename;
+    remove(filePath.c_str());
     std::cout << "Document " << filename << " has been deleted" << std::endl;
     data.erase(filename);
     return true;

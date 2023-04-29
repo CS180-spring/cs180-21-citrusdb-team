@@ -58,66 +58,52 @@ TEST(ReadFile, BasicOperations)
         "    ]\n";
     raw +=
         "}";
-    EXPECT_EQ(raw, readFile("database/people.json"));
-}
-
-TEST(DeleteFile, BasicOperations) {
-    string file = "test.txt";
-    ofstream outFile(file);
-    outFile << "Test file opened";
-    outFile.close();
-
-    ifstream inFile(file);
-    ASSERT_TRUE(inFile.good());
-    inFile.close();
-
-    deleteDocument(file);
-
-    inFile.open(file);
-    ASSERT_FALSE(inFile.good());
-    inFile.close();
-}
-
-TEST(ReadAndDelete, BasicOperations) {
-    string input = "\t\nqwertyuiopasdfghjklzxcvbnm!@#$%^&*()_+1234567890";
-    string filename = "testRead.txt";
-    ofstream outFile(filename);
-    outFile << input;
-    outFile.close();
-
-    string read = readFile(filename);
-    EXPECT_EQ(read, input);
-
-    deleteDocument(filename);
-
-    ifstream inFile(filename);
-    ASSERT_FALSE(inFile.good());
-    inFile.close();
-
-
-}
-
-TEST(MultipleReadAndDelete, BasicOperations) { 
-    string input = string("\'\"?\a\t\n\n\n\nthe quick brown fox jumps over the lazy dog\n")+
-        "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
-    string filename = "multiRead.txt";
-    ofstream outFile(filename);
-    outFile << input;
-    outFile.close();
-    for (int i = 0; i < 100; i++){
-        string read = readFile(filename);
-        EXPECT_EQ(read, input);
-    }
-    deleteDocument(filename);
-
-    ifstream inFile(filename);
-    ASSERT_FALSE(inFile.good());
-    inFile.close();
-
-
+    Database test;
+    EXPECT_EQ(raw, test.readFile("database/people.json"));
 }
 
 TEST(UploadFile, BasicOperations){
-    uploadFile("upload/people.json");
-    EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
+    Database test;
+    test.uploadFile("people.json");
+    EXPECT_EQ(test.readFile("upload/people.json") ,test.readFile("database/people.json"));
+}
+
+TEST(DeleteFile, BasicOperations) {
+    Database test;
+
+    test.uploadFile("test.txt");
+
+    test.deleteDocument("test.txt");
+
+    ASSERT_FALSE(test.isInDatabase("test.txt"));
+}
+
+TEST(ReadAndDelete, BasicOperations) {
+    Database test;
+    string input = "\n\tqwertyuiopasdfghjklzxcvbnm!@#$%^&*()_+1234567890";
+
+    test.uploadFile("testread.txt");
+
+    string read = test.readFile("testread.txt");
+    EXPECT_EQ(read, input);
+
+    test.deleteDocument("testread.txt");
+
+    ASSERT_FALSE(test.isInDatabase("testread.txt"));
+}
+
+TEST(MultipleReadAndDelete, BasicOperations) { 
+    Database test;
+    string input = "the quick brown fox jumps over the lazy dog. \n THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.";
+    string filename = "multiRead.txt";
+
+    test.uploadFile(filename);
+
+    for (int i = 0; i < 100; i++){
+        string read = test.readFile(filename);
+        EXPECT_EQ(read, input);
+    }
+    test.deleteDocument(filename);
+
+    ASSERT_FALSE(test.isInDatabase(filename));
 }
