@@ -1,12 +1,21 @@
 #include "database.hpp"
 
-bool Database::deleteDocument(const std::string filepath) {
-    if (!this->isInDatabase(filepath)) {
+Database::Database(){
+
+}
+
+Database::~Database(){
+
+}
+
+bool Database::deleteDocument(const std::string filename) {
+    if (!this->isInDatabase(filename)) {
         std::cout << "Error: Database file not found" << std::endl;
         return false;
     }
-    remove(filepath.c_str());
-    std::cout << "Document " << filepath << " has been deleted" << std::endl;
+    remove(filename.c_str());
+    std::cout << "Document " << filename << " has been deleted" << std::endl;
+    data.erase(filename);
     return true;
 }
 
@@ -41,6 +50,9 @@ bool Database::uploadFile(const std::string filename){
         while(std::getline(fin, line)){
             fout << line << "\n";
         }
+        
+        data.insert(filename, outputPath);
+
         return 1;
     }
     else{

@@ -9,17 +9,17 @@ class Database{
         std::map<std::string, std::string> data;
 
     public:
+    
+    Database();
+    
+    ~Database();
 
-    bool deleteDocument(const std::string filepath);
+    bool deleteDocument(const std::string filename);
 
     bool isInDatabase(const std::string filename);
 
     std::string readFile(const std::string filepath);
 
-    //@brief Upload a file that is stored in the upload folder into the database folder
-        //Assumes that file to be uploaded is present in the upload folder.
-    //@param filename of the file to be uploaded from upload to database.
-    //@return true if file was able to be successfully opened and transferred, false if there was an error opening either file. 
     bool uploadFile(const std::string filename);
 
 };
