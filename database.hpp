@@ -6,7 +6,7 @@
 
 class Database{
     private:
-        std::map<std::string, std::string> database;
+        std::map<std::string, std::string> data;
 
     public:
 

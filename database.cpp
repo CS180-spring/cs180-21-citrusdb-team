@@ -11,7 +11,7 @@ bool Database::deleteDocument(const std::string filepath) {
 }
 
 bool Database::isInDatabase(const std::string fileName) {
-    if (this->database.find(fileName) == this->database.end()) {
+    if (this->data.find(fileName) == this->data.end()) {
         return false;
     }
     else {
