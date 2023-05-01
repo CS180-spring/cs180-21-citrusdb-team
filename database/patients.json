@@ -1,0 +1,101 @@
+{
+    "filename": "/database/patients.json",
+    "patients": [
+        {
+            "_id": "1",
+            "First name": "Bob",
+            "Middle initial": "C",
+            "Last name": "Smith",
+            "Is in the ICU?": true,
+            "Disease(s)": [
+                "myocardial infarction"
+            ],
+            "Date of Hospitalization": "2022/04/01"
+        },
+        {
+            "_id": "2",
+            "First name": "Joseph",
+            "Middle initial": "P",
+            "Last name": "Hunt",
+            "Is in the ICU?": false,
+            "Disease(s)": [
+                "diabetes",
+                "influenza",
+                "pneumonia"
+            ],
+            "Date of Hospitalization": "2022/03/25"
+        },
+        {
+            "_id": "3",
+            "First name": "Robert",
+            "Middle initial": "M",
+            "Last name": "Johnson",
+            "Is in the ICU?": false,
+            "Disease(s)": [
+                "acute hypotension",
+                "hemorrhage"
+            ],
+            "Date of Hospitalization": "2022/03/29"
+        },
+        {
+            "_id": "4",
+            "First name": "Dorey",
+            "Middle initial": "V",
+            "Last name": "Jones",
+            "Is in the ICU?": true,
+            "Disease(s)": [
+                "hepatic failure",
+                "hepatitis A",
+                "hypertension"
+            ],
+            "Date of Hospitalization": "2022/03/26"
+        },
+        {
+            "_id": "5",
+            "First name": "Jessica",
+            "Middle initial": "Y",
+            "Last name": "Davis",
+            "Is in the ICU?": false,
+            "Disease(s)": [
+                "hip fracture",
+                "osteoporosis"
+            ],
+            "Date of Hospitalization": "2022/03/15"
+        },
+        {
+            "_id": "6",
+            "First name": "James",
+            "Middle initial": "Q",
+            "Last name": "Frederick",
+            "Is in the ICU?": false,
+            "Disease(s)": [
+                "Escherichia coli infection",
+                "fever",
+                "hemophilia"
+            ],
+            "Date of Hospitalization": "2022/04/01"
+        },
+        {
+            "_id": "7",
+            "First name": "Walter",
+            "Middle initial": "H",
+            "Last name": "White",
+            "Is in the ICU?": false,
+            "Disease(s)": [
+                "stage 3 adenocarcinoma"
+            ],
+            "Date of Hospitalization": "2022/04/01"
+        },
+        {
+            "_id": "8",
+            "First name": "Trevor",
+            "Middle initial": "A",
+            "Last name": "Miller",
+            "Is in the ICU?": false,
+            "Disease(s)": [
+                "hiatal hernia"
+            ],
+            "Date of Hospitalization": "2022/03/31"
+        }
+    ]
+}

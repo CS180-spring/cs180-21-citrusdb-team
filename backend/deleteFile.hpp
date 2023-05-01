@@ -1,3 +1,5 @@
+#ifndef DELETEFILE_HPP
+#define DELETEFILE_HPP
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -5,3 +7,4 @@
 
 bool isinDatabase(const std::string filepath);
 bool deleteDocument(const std::string filepath);
+#endif

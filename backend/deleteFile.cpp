@@ -17,6 +17,6 @@ bool deleteDocument(const string filepath) {
         return false;
     }
     remove(filepath.c_str());
-    cout << "Document " << filepath << " has been deleted" << endl;
+   // cout << "Document " << filepath << " has been deleted" << endl;
     return true;
 }

@@ -1,67 +1,81 @@
 #include <gtest/gtest.h>
 #include <string>
+#include <variant>
 #include "backend/readFile.hpp"
 #include "backend/deleteFile.hpp"
+#include "backend/uploadFile.hpp"
+#include "backend/entry.hpp"
 
 using namespace std;
 
-TEST(ReadFile, BasicOperations)
+// TEST(BasicDatabaseOperations, SingleTypeEntryObject){
+//     vector<variant<int, double>> v = {2, 4, 6, 8, 0};
+//     string uniqueId = "13579";
+//     Entry nums = Entry(uniqueId, v);
+//     EXPECT_EQ(uniqueId, nums.getId());
+//     for (size_t i = 0; i < v.size(); i++){
+//         EXPECT_EQ(nums.getElement(i), v.at(i));
+//     }
+// }
+
+TEST(BasicOperations, ReadFile)
 {
     // regex helps
     string raw = "";
-    raw += "{\n";
+    raw += "{\r\n";
     raw +=
-        "    \"_id\": \"jkl321\",\n";
+        "    \"_id\": \"jkl321\",\r\n";
     raw +=
-        "    \"science fiction authors\": [\n";
+        "    \"science fiction authors\": [\r\n";
     raw +=
-        "        {\n";
+        "        {\r\n";
     raw +=
-        "            \"_id\": \"abc123\",\n";
+        "            \"_id\": \"abc123\",\r\n";
     raw +=
-        "            \"first name\": \"Isaac\",\n";
+        "            \"first name\": \"Isaac\",\r\n";
     raw +=
-        "            \"last name\": \"Asimov\",\n";
+        "            \"last name\": \"Asimov\",\r\n";
     raw +=
-        "            \"birth date\": {\n";
+        "            \"birth date\": {\r\n";
     raw +=
-        "                \"Year\": 1920,\n";
+        "                \"Year\": 1920,\r\n";
     raw +=
-        "                \"Month\": \"January\",\n";
+        "                \"Month\": \"January\",\r\n";
     raw +=
-        "                \"Day\": 2\n";
+        "                \"Day\": 2\r\n";
     raw +=
-        "            }\n";
+        "            }\r\n";
     raw +=
-        "        },\n";
+        "        },\r\n";
     raw +=
-        "        {\n";
+        "        {\r\n";
     raw +=
-        "            \"_id\": \"xyz098\",\n";
+        "            \"_id\": \"xyz098\",\r\n";
     raw +=
-        "            \"first name\": \"Arthur\",\n";
+        "            \"first name\": \"Arthur\",\r\n";
     raw +=
-        "            \"middle initial\": \"C\",\n";
+        "            \"middle initial\": \"C\",\r\n";
     raw +=
-        "            \"last name\": \"Clark\",\n";
+        "            \"last name\": \"Clark\",\r\n";
     raw +=
-        "            \"famous books\": [\n";
+        "            \"famous books\": [\r\n";
     raw +=
-        "                \"2001: A Space Odyssey\",\n";
+        "                \"2001: A Space Odyssey\",\r\n";
     raw +=
-        "                \"The Songs of Distant Earth\"\n";
+        "                \"The Songs of Distant Earth\"\r\n";
     raw +=
-        "            ]\n";
+        "            ]\r\n";
     raw +=
-        "        }\n";
+        "        }\r\n";
     raw +=
-        "    ]\n";
+        "    ]\r\n";
     raw +=
         "}";
+        // readFile("database/people.json")
     EXPECT_EQ(raw, readFile("database/people.json"));
 }
 
-TEST(DeleteFile, BasicOperations) {
+TEST(BasicOperations, DeleteFile) {
     string file = "test.txt";
     ofstream outFile(file);
     outFile << "Test file opened";
@@ -78,7 +92,7 @@ TEST(DeleteFile, BasicOperations) {
     inFile.close();
 }
 
-TEST(ReadAndDelete, BasicOperations) {
+TEST(BasicOperations, ReadAndDelete) {
     string input = "\t\nqwertyuiopasdfghjklzxcvbnm!@#$%^&*()_+1234567890";
     string filename = "testRead.txt";
     ofstream outFile(filename);
@@ -97,7 +111,7 @@ TEST(ReadAndDelete, BasicOperations) {
 
 }
 
-TEST(MultipleReadAndDelete, BasicOperations) { 
+TEST(BasicOperations, MultipleReadAndDelete) { 
     string input = string("\'\"?\a\t\n\n\n\nthe quick brown fox jumps over the lazy dog\n")+
         "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
     string filename = "multiRead.txt";
@@ -117,7 +131,7 @@ TEST(MultipleReadAndDelete, BasicOperations) {
 
 }
 
-TEST(UploadFile, BasicOperations){
+TEST(BasicOperations, UploadFile){
     uploadFile("upload/people.json");
     EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
 }
