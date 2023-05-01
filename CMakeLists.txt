@@ -18,6 +18,7 @@ enable_testing()
 add_executable(
   testHarness
   backend/readFile.cpp
+  backend/deleteFile.cpp
   test.cpp
 )
 
