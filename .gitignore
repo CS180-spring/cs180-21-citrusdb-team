@@ -9,3 +9,4 @@ Makefile
 testHarness
 /.vscode/
 *.out
+./frontend/citrusdb/node_modules
