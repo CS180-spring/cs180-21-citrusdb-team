@@ -15,6 +15,3 @@ string Entry::getId() const
     return id;
 }
 
-int main (){
-    return 0;
-}
