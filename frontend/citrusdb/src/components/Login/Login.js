@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import accounts from '../../database/accounts.json';
+import UCRLOGO from '../../images/cutiehack.png'
 
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 export function loginUser(account) {
-    // console.log(account);
-    // console.log(account[0], account[1]);
     if (accounts.hasOwnProperty(account[0]) && accounts[account[0]] === account[1]) {
         return 'valid';
     }
@@ -14,35 +14,58 @@ export function loginUser(account) {
 };
 
 export default function Login({ setToken }) {
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = e => {
-        e.preventDefault();
+    const handleLogin = (event) => {
+        event.preventDefault();
         const token = loginUser([username, password]);
         if (token === 'valid') {
-            setToken('valid');
+            //alert("nice");
+            setToken(true);
+            navigate('/dashboard');
         }
         else {
             alert("Invalid Login");
         }
     }
+
+    const handleForgot = (event) => {
+        event.preventDefault();
+        //alert("Forgot");
+        navigate("/forgot");
+    }
+
+    const handleRegister = (event) => {
+        event.preventDefault();
+        ///alert("register");
+        navigate("/register");
+    }
+    
+    var disableButton = (username.length === 0) || (password.length === 0);
+
     return(
         <div className="login-wrapper">
-        <h1>CitrusDB Log In</h1>
-        <form onSubmit={handleSubmit}>
+            <h1>CitrusDB</h1>
+            <h2>Login</h2>
+            <img src={UCRLOGO} alt="UCRLOGO.png"/>
+            <form onSubmit={handleLogin}>
             <label>
-                <p>Username</p>
-                <input type="text" onChange={e => setUserName(e.target.value)} />
-            </label>
-            <label>
-                <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)} />
-            </label>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-        </form>
+                    <p>Username/Email</p>
+                    <input type="text" onChange={e => setUserName(e.target.value)} />
+                </label>
+                <label>
+                    <p>Password</p>
+                    <input type="password" onChange={e => setPassword(e.target.value)} />
+                </label>
+                    <div>
+                        <button type="button" id="registerButton" onClick={handleRegister}>Register</button>
+                        <button type="button" id="forgotButton" onClick={handleForgot}>Forgot Password?</button>
+                    </div>
+                    <br />
+                    <button type="submit" id="loginButton" disabled={disableButton}>Login</button>
+            </form>
         </div>
     )
 };

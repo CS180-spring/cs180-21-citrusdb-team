@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
-import Preferences from './components/Preferences/Preferences';
+import Register from './components/Register/Register';
+import Forgot from './components/Forgot/Forgot';
 
 /*
   Credit 
@@ -15,17 +16,17 @@ import Preferences from './components/Preferences/Preferences';
 function App() {
   const [token, setToken] = useState();
 
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
   return (
     <div className="App">
-      <h1>CitrusDB</h1>
-      <BrowserRouter>
-        <Routes>  
+        <Routes>
+          <Route
+            path="/"
+            element={token ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}/>
+          <Route path="/login" element={<Login setToken={setToken}/>} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot" element={<Forgot />} />
         </Routes>
-      </BrowserRouter>
     </div>
   );
 }
