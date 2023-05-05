@@ -6,12 +6,21 @@ import UCRLOGO from '../../images/cutiehack.png'
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
+var userGlobal = '';
+
 export function loginUser(account) {
     if (accounts.hasOwnProperty(account[0]) && accounts[account[0]] === account[1]) {
         return 'valid';
     }
     return 'invalid';
 };
+
+export function getUser() {
+    if (userGlobal !== '') {
+        return userGlobal;
+    }
+    return '';
+}
 
 export default function Login({ setToken }) {
     const [username, setUserName] = useState('');
@@ -24,6 +33,7 @@ export default function Login({ setToken }) {
         if (token === 'valid') {
             //alert("nice");
             setToken(true);
+            userGlobal = username;
             navigate('/dashboard');
         }
         else {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import UCRLOGO from '../../images/cutiehack.png'
 import { useNavigate } from 'react-router-dom';
+import './Forgot.css';
 
 function Forgot() {
     const [username, setUserName] = useState('');

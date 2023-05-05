@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import UCRLOGO from '../../images/cutiehack.png'
 import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
 function Register() {
     const [username, setUserName] = useState('');
