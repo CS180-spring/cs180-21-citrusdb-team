@@ -1,17 +1,21 @@
-#include "entry.hpp"
+#include "readFile.hpp"
+#include "../rapidjson/document.h"
+#include <iostream>
 
 
-Entry::Entry(const string &id, vector<int> attributes):
-    id(id), attributes(attributes)
-{}
 
-int Entry::getElement (const size_t i) const
-{
-    return attributes[i];
-}
+using namespace rapidjson;
 
-string Entry::getId() const
-{
-    return id;
-}
+// int main(){
+//     Document document;
+//     document.Parse(readFile("../database/patients.json").c_str());
+//     for (auto& i document.MemberBegin(): document){
+
+//     }
+//     const Value& patients = document["patients"].GetArray();
+//     for (size_t i = 0; i < patients.Size(); i++){
+//         const Value& patient = patients[i];
+//         std::cout << patient["First name"].GetString() << endl;
+//     }
+// }
 

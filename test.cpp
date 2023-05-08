@@ -1,10 +1,7 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <variant>
-#include "backend/readFile.hpp"
-#include "backend/deleteFile.hpp"
-#include "backend/uploadFile.hpp"
-#include "backend/entry.hpp"
+#include "backend/file.hpp"
 
 using namespace std;
 
