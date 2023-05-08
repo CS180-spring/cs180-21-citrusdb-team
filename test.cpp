@@ -2,8 +2,10 @@
 #include <string>
 #include <variant>
 #include "backend/file.hpp"
+#include "rapidjson/document.h"
 
 using namespace std;
+using namespace rapidjson;
 
 // TEST(BasicDatabaseOperations, SingleTypeEntryObject){
 //     vector<variant<int, double>> v = {2, 4, 6, 8, 0};
@@ -131,4 +133,17 @@ TEST(BasicOperations, MultipleReadAndDelete) {
 TEST(BasicOperations, UploadFile){
     uploadFile("upload/people.json");
     EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
+}
+
+TEST(RapidJSON, ReadFile){
+    Document document;
+    document.Parse(readFile("database/patients.json").c_str());
+    const Value& patients = document["patients"].GetArray();
+    EXPECT_EQ(patients.Size(), 8);
+    string names [] = {"Bob", "Joseph", "Robert", "Dorey", "Jessica", 
+        "James", "Walter", "Trevor"};
+    for (size_t i = 0; i < patients.Size(); i++){
+        const Value& patient = patients[i];
+        EXPECT_EQ(patient["First name"].GetString(), names[i]);
+    }
 }
