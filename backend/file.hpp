@@ -1,5 +1,5 @@
-#ifndef READFILE_HPP
-#define READFILE_HPP
+#ifndef FILE_HPP
+#define FILE_HPP
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -8,4 +8,6 @@
 
 bool isInDatabase(const std::string filepath);
 std::string readFile(const std::string filepath);
+bool uploadFile(const std::string filename);
+bool deleteDocument(const std::string filepath);
 #endif
