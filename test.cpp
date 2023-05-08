@@ -7,15 +7,6 @@
 using namespace std;
 using namespace rapidjson;
 
-// TEST(BasicDatabaseOperations, SingleTypeEntryObject){
-//     vector<variant<int, double>> v = {2, 4, 6, 8, 0};
-//     string uniqueId = "13579";
-//     Entry nums = Entry(uniqueId, v);
-//     EXPECT_EQ(uniqueId, nums.getId());
-//     for (size_t i = 0; i < v.size(); i++){
-//         EXPECT_EQ(nums.getElement(i), v.at(i));
-//     }
-// }
 
 TEST(BasicOperations, ReadFile)
 {
