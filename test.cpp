@@ -11,53 +11,53 @@ TEST(ReadFile, BasicOperations)
 {
     // regex helps
     string raw = "";
-    raw += "{\n";
+    raw += "{\r\n";
     raw +=
-        "    \"_id\": \"jkl321\",\n";
+        "    \"_id\": \"jkl321\",\r\n";
     raw +=
-        "    \"science fiction authors\": [\n";
+        "    \"science fiction authors\": [\r\n";
     raw +=
-        "        {\n";
+        "        {\r\n";
     raw +=
-        "            \"_id\": \"abc123\",\n";
+        "            \"_id\": \"abc123\",\r\n";
     raw +=
-        "            \"first name\": \"Isaac\",\n";
+        "            \"first name\": \"Isaac\",\r\n";
     raw +=
-        "            \"last name\": \"Asimov\",\n";
+        "            \"last name\": \"Asimov\",\r\n";
     raw +=
-        "            \"birth date\": {\n";
+        "            \"birth date\": {\r\n";
     raw +=
-        "                \"Year\": 1920,\n";
+        "                \"Year\": 1920,\r\n";
     raw +=
-        "                \"Month\": \"January\",\n";
+        "                \"Month\": \"January\",\r\n";
     raw +=
-        "                \"Day\": 2\n";
+        "                \"Day\": 2\r\n";
     raw +=
-        "            }\n";
+        "            }\r\n";
     raw +=
-        "        },\n";
+        "        },\r\n";
     raw +=
-        "        {\n";
+        "        {\r\n";
     raw +=
-        "            \"_id\": \"xyz098\",\n";
+        "            \"_id\": \"xyz098\",\r\n";
     raw +=
-        "            \"first name\": \"Arthur\",\n";
+        "            \"first name\": \"Arthur\",\r\n";
     raw +=
-        "            \"middle initial\": \"C\",\n";
+        "            \"middle initial\": \"C\",\r\n";
     raw +=
-        "            \"last name\": \"Clark\",\n";
+        "            \"last name\": \"Clark\",\r\n";
     raw +=
-        "            \"famous books\": [\n";
+        "            \"famous books\": [\r\n";
     raw +=
-        "                \"2001: A Space Odyssey\",\n";
+        "                \"2001: A Space Odyssey\",\r\n";
     raw +=
-        "                \"The Songs of Distant Earth\"\n";
+        "                \"The Songs of Distant Earth\"\r\n";
     raw +=
-        "            ]\n";
+        "            ]\r\n";
     raw +=
-        "        }\n";
+        "        }\r\n";
     raw +=
-        "    ]\n";
+        "    ]\r\n";
     raw +=
         "}";
     EXPECT_EQ(raw, readFile("database/people.json"));

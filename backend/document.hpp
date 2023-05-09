@@ -1,17 +1,14 @@
 #include <string>
-#include <vector>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
-
 using json = nlohmann::ordered_json;
-using namespace std;
 
 class Document {
 public:
     // constructors
     Document();
-    Document(string id, string filepath);
+    Document(string filepath);
 
     // CRUD
     void createObject(string objectID, json object);
@@ -24,8 +21,6 @@ public:
     // returns a vector of all object IDs in the document
     vector<string> listObjectIDs();
 
-    // returns the document ID
-    string getID();
 
     // returns the current content of the document
     json getContent();
@@ -35,6 +30,5 @@ public:
     void clearContent();
 
 private:
-    string id;
     string filepath;
 };
