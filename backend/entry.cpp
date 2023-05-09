@@ -1,16 +1,9 @@
-#include "entry.hpp"
+#include "readFile.hpp"
+#include "../rapidjson/document.h"
+#include <iostream>
 
 
-Entry::Entry(const string &id, vector<int> attributes):
-    id(id), attributes(attributes)
-{}
 
-int Entry::getElement (const size_t i) const
-{
-    return attributes[i];
-}
+using namespace rapidjson;
 
-string Entry::getId() const
-{
-    return id;
-}
+
