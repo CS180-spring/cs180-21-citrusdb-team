@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
+#include <variant>
 #include "backend/readFile.hpp"
 #include "backend/deleteFile.hpp"
 #include "backend/uploadFile.hpp"
@@ -7,7 +8,17 @@
 
 using namespace std;
 
-TEST(ReadFile, BasicOperations)
+// TEST(BasicDatabaseOperations, SingleTypeEntryObject){
+//     vector<variant<int, double>> v = {2, 4, 6, 8, 0};
+//     string uniqueId = "13579";
+//     Entry nums = Entry(uniqueId, v);
+//     EXPECT_EQ(uniqueId, nums.getId());
+//     for (size_t i = 0; i < v.size(); i++){
+//         EXPECT_EQ(nums.getElement(i), v.at(i));
+//     }
+// }
+
+TEST(BasicOperations, ReadFile)
 {
     // regex helps
     string raw = "";
@@ -60,10 +71,11 @@ TEST(ReadFile, BasicOperations)
         "    ]\r\n";
     raw +=
         "}";
+        // readFile("database/people.json")
     EXPECT_EQ(raw, readFile("database/people.json"));
 }
 
-TEST(DeleteFile, BasicOperations) {
+TEST(BasicOperations, DeleteFile) {
     string file = "test.txt";
     ofstream outFile(file);
     outFile << "Test file opened";
@@ -80,7 +92,7 @@ TEST(DeleteFile, BasicOperations) {
     inFile.close();
 }
 
-TEST(ReadAndDelete, BasicOperations) {
+TEST(BasicOperations, ReadAndDelete) {
     string input = "\t\nqwertyuiopasdfghjklzxcvbnm!@#$%^&*()_+1234567890";
     string filename = "testRead.txt";
     ofstream outFile(filename);
@@ -97,7 +109,7 @@ TEST(ReadAndDelete, BasicOperations) {
     inFile.close();
 }
 
-TEST(MultipleReadAndDelete, BasicOperations) { 
+TEST(BasicOperations, MultipleReadAndDelete) { 
     string input = string("\'\"?\a\t\n\n\n\nthe quick brown fox jumps over the lazy dog\n")+
         "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
     string filename = "multiRead.txt";
@@ -115,7 +127,7 @@ TEST(MultipleReadAndDelete, BasicOperations) {
     inFile.close();
 }
 
-TEST(UploadFile, BasicOperations){
+TEST(BasicOperations, UploadFile){
     uploadFile("upload/people.json");
     EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
 }

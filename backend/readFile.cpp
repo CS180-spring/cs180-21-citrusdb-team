@@ -1,6 +1,4 @@
 #include "readFile.hpp"
-#include <iostream>
-#include <map>
 
 using namespace std;
 
@@ -26,7 +24,6 @@ string readFile(const string filepath){
     input.open(filepath);
     ostringstream sstr;
     sstr << input.rdbuf();
-    cout << sstr.str() << endl;
     return sstr.str();
 }
 
