@@ -20,10 +20,9 @@ void jsonStrings(const string& inputFile, vector<Entry<string>>& entries) {
         newEntry.id = person["_id"];
 
         vector<Attribute<string>> attributes;
-        for (auto it = person.begin(); it != person.end(); ++it) {
-            string key = it.key();
-            string value = it.value().dump();
-            attributes.push_back({key, value});
+        for (auto& [key, value] : person.items()) {
+            string strValue = value.dump();
+            attributes.push_back({key, strValue});
         }
 
         newEntry.attributes = attributes;
