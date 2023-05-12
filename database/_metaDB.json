@@ -1,0 +1,22 @@
+{
+    "users":[
+        {
+            "username": "root",
+            "email": "",
+            "password": "password",
+            "collections": "*"
+        },
+        {
+            "username": "Alice",
+            "email": "alice@example.com",
+            "password": "m",
+            "collections": "database/"
+        },
+        {
+            "username": "Bob",
+            "email": "bob@example.com",
+            "password": "e",
+            "collections": "database/"
+        }
+    ]
+}

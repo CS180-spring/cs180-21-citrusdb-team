@@ -5,7 +5,7 @@
 #include "rapidjson/document.h"
 
 using namespace std;
-using namespace rapidjson;
+
 
 
 TEST(BasicOperations, ReadFile)
@@ -127,6 +127,7 @@ TEST(BasicOperations, UploadFile){
 }
 
 TEST(RapidJSON, ReadFile){
+    using namespace rapidjson;
     Document document;
     document.Parse(readFile("database/patients.json").c_str());
     const Value& patients = document["patients"].GetArray();
