@@ -2,11 +2,10 @@
 #include <string>
 #include <variant>
 #include "backend/file.hpp"
+#include "backend/databaseEngine.hpp"
 #include "rapidjson/document.h"
 
 using namespace std;
-
-
 
 TEST(BasicOperations, ReadFile)
 {
@@ -126,16 +125,53 @@ TEST(BasicOperations, UploadFile){
     EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
 }
 
-TEST(RapidJSON, ReadFile){
-    using namespace rapidjson;
-    Document document;
-    document.Parse(readFile("database/patients.json").c_str());
-    const Value& patients = document["patients"].GetArray();
-    EXPECT_EQ(patients.Size(), 8);
-    string names [] = {"Bob", "Joseph", "Robert", "Dorey", "Jessica", 
-        "James", "Walter", "Trevor"};
-    for (size_t i = 0; i < patients.Size(); i++){
-        const Value& patient = patients[i];
-        EXPECT_EQ(patient["First name"].GetString(), names[i]);
-    }
+TEST(DBEngine, Initilization){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.loginCheck("alice", "m"));
+    ASSERT_FALSE(dbe.loginCheck("nonexistent", "m"));
+}
+
+TEST(DBEngine, AddUsers){
+    DatabaseEngine dbe;
+    int passed = dbe.createUser("user1", "temp@example.com", "pwd123");
+    EXPECT_EQ(passed, 1);
+    int fail_existing_username = dbe.createUser("user1", "12345@example.edu", "qwerty");
+    EXPECT_EQ(fail_existing_username, 0);
+    int fail_existing_email = dbe.createUser("user2", "temp@example.com", "asdfjkl;");
+    EXPECT_EQ(fail_existing_email, -1);
+    ASSERT_FALSE(dbe.deleteUser("user2"));
+    int fail_bad_password = dbe.createUser("user3", "temporary@not-real.com", ".");
+    EXPECT_EQ(fail_bad_password, -2);
+}
+
+TEST(DBEngine, AddAndDeleteUsers){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.deleteUser("alice"));
+    ASSERT_FALSE(dbe.deleteUser("alice"));
+    int passed = dbe.createUser("user1", "temp@example.com", "pwd123");
+    EXPECT_EQ(passed, 1);
+    ASSERT_TRUE(dbe.deleteUser("user1"));
+    ASSERT_FALSE(dbe.deleteUser("user1"));
+    ASSERT_TRUE(dbe.deleteUser("bob"));
+    ASSERT_FALSE(dbe.deleteUser("bob"));
+}
+
+TEST(DBEngine, Logins){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.loginCheck("alice", "m"));
+    ASSERT_FALSE(dbe.loginCheck("alice", "wrong"));
+    ASSERT_FALSE(dbe.loginCheck("not_existent", "m"));
+
+}
+
+TEST(DBEngine, ChangePasswords){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.resetPassword("alice", "alice@example.com"));
+    ASSERT_FALSE(dbe.resetPassword("not_exist", "alice@example.com"));
+    ASSERT_FALSE(dbe.resetPassword("alice", "not_existent@email.com"));
+    ASSERT_FALSE(dbe.updatePassword("not_existent", "123456789"));
+    ASSERT_FALSE(dbe.updatePassword("alice", "b"));
+    string pwd = "strong_password";
+    ASSERT_TRUE(dbe.updatePassword("alice", pwd));
+    EXPECT_EQ(pwd, dbe.getUser("alice").getPassword());
 }

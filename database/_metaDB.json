@@ -1,17 +1,17 @@
 {
     "users":[
         {
-            "username": "root",
+            "username": "",
             "email": "",
-            "password": "password"
+            "password": "root"
         },
         {
-            "username": "Alice",
+            "username": "alice",
             "email": "alice@example.com",
             "password": "m"
         },
         {
-            "username": "Bob",
+            "username": "bob",
             "email": "bob@example.com",
             "password": "e"
         }

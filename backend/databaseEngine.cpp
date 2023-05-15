@@ -5,7 +5,7 @@
 DatabaseEngine::DatabaseEngine()
 {
     using json = nlohmann::json;
-    json j_file = json::parse(readFile("../database/_metaDB.json"));
+    json j_file = json::parse(readFile("database/_metaDB.json"));
     json j_users = j_file["users"];
 
     for (json j_user : j_users ){
@@ -27,7 +27,7 @@ DatabaseEngine::DatabaseEngine()
 /// @return 
 int DatabaseEngine::createUser(const std::string &username, const std::string &email, const std::string &password)
 {
-    if (!users.contains(username))
+    if (users.contains(username))
         return 0;
     for (auto userDB: users){
         // found existing email
@@ -46,10 +46,10 @@ int DatabaseEngine::createUser(const std::string &username, const std::string &e
 /// @param username 
 /// @param password 
 /// @return a bool whether the username and password combination is valid
-bool DatabaseEngine::loginCheck(const std::string &username, const std::string &password) const
+bool DatabaseEngine::loginCheck(const std::string &username, const std::string &password)
 {
     if (users.contains(username)){
-        
+
         if (users[username].getPassword() == password){
             return true;
         }
@@ -62,30 +62,63 @@ bool DatabaseEngine::loginCheck(const std::string &username, const std::string &
     }
 }
 
-bool DatabaseEngine::resetPassword(const std::string &username)
+/// @brief If associated username and email are found, return true; return false if otherwise
+/// @param username 
+/// @param email 
+/// @return 
+bool DatabaseEngine::resetPassword(const std::string &username, const std::string& email)
 {
-    return false;
+    if (users.contains(username)){
+        if (users[username].getEmail() == email){
+            // reset password
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
 }
 
+/// @brief Set a new password for a username. Return true if done successfully. Return false if 
+/// username is not found or if password does not meet requirements
+/// @param username 
+/// @param newPassword 
+/// @return 
 bool DatabaseEngine::updatePassword(const std::string &username, const std::string &newPassword)
 {
-    return false;
+    if (users.contains(username)){
+        if (newPassword.size() <= 4){
+            return false;
+        }
+        users[username].setPassword(newPassword);
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
+/// @brief Gets the user. Does not check if such username actually exists
+/// @param username 
+/// @return 
 UserDatabase DatabaseEngine::getUser(const std::string &username)
 {
-    return this->users[0];
+    return users[username];
 }
 
+/// @brief Delete the associated user database. Return true if done. Return false if not.
+/// @param username 
+/// @return 
 bool DatabaseEngine::deleteUser(const std::string &username)
 {
-    return false;
-}
-
-/// @brief Testing only
-/// @return 
-int main(){
-    DatabaseEngine dbe;
-
-    return 0;
+    if (users.contains(username)){
+        users.erase(username);
+        return true;
+    }
+    else{
+        return false;
+    }
 }
