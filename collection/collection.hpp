@@ -17,15 +17,15 @@ private:
 public:
     Collection(string filePath);
     
-    int createDocument();
+    int createDocument(string documentName, string jsonTemplate);
 
-    int deleteDocument();
+    int deleteDocument(string documentName);
 
-    int renameDocument();
+    int renameDocument(string oldDocumentName, string newDocumentName);
 
-    int replaceDocument();
+    int replaceDocument(string originalDocumentName, string newDocumentName);
 
-    Document getDocument();
+    Document getDocument(string documentName);
 
     vector<Document> getDocuments();
     
