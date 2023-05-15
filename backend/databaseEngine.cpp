@@ -1,5 +1,4 @@
 #include "databaseEngine.hpp"
-#include <iostream>
 
 /// @brief Creates the Database Engine populating with the users listed in the metadata file
 DatabaseEngine::DatabaseEngine()

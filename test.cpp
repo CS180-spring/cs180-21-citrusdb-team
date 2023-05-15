@@ -3,7 +3,6 @@
 #include <variant>
 #include "backend/file.hpp"
 #include "backend/databaseEngine.hpp"
-#include "rapidjson/document.h"
 
 using namespace std;
 
