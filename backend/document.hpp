@@ -1,7 +1,9 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <nlohmann/json.hpp>
+#include <vector>
+#include <./nlohmann/json.hpp>
+using namespace std;
 using json = nlohmann::ordered_json;
 
 class Document {
@@ -31,4 +33,5 @@ public:
 
 private:
     string filepath;
+    json content;
 };
