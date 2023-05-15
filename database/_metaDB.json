@@ -3,20 +3,17 @@
         {
             "username": "root",
             "email": "",
-            "password": "password",
-            "collections": "*"
+            "password": "password"
         },
         {
             "username": "Alice",
             "email": "alice@example.com",
-            "password": "m",
-            "collections": "database/"
+            "password": "m"
         },
         {
             "username": "Bob",
             "email": "bob@example.com",
-            "password": "e",
-            "collections": "database/"
+            "password": "e"
         }
     ]
 }
