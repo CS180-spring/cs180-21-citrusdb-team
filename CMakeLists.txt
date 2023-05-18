@@ -18,6 +18,7 @@ add_executable(
   backend/deleteFile.cpp
   backend/uploadFile.cpp
   backend/jsonStrings.cpp
+  backend/document.cpp
   test.cpp
 )
 
