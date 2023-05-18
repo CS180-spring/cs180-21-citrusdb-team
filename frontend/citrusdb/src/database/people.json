@@ -1,0 +1,25 @@
+{
+    "_id": "jkl321",
+    "science fiction authors": [
+        {
+            "_id": "abc123",
+            "first name": "Isaac",
+            "last name": "Asimov",
+            "birth date": {
+                "Year": 1920,
+                "Month": "January",
+                "Day": 2
+            }
+        },
+        {
+            "_id": "xyz098",
+            "first name": "Arthur",
+            "middle initial": "C",
+            "last name": "Clark",
+            "famous books": [
+                "2001: A Space Odyssey",
+                "The Songs of Distant Earth"
+            ]
+        }
+    ]
+}

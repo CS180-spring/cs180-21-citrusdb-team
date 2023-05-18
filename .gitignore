@@ -10,3 +10,4 @@ testHarness
 /.vscode/
 *.out
 backend/userDatabase.hpp
+frontend/citrusdb/node_modules/
