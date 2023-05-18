@@ -10,7 +10,10 @@ class Document {
 public:
     // constructors
     Document();
-    Document(string filepath);
+    Document(string filepath, string filename);
+
+    void setName(const string& newfilename);
+    string getName() const;
 
     // CRUD
     void createObject(string objectID, json object);
@@ -34,4 +37,5 @@ public:
 private:
     string filepath;
     json content;
+    string filename;
 };

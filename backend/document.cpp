@@ -4,9 +4,18 @@ using namespace std;
 
 Document::Document() {}
 
-Document::Document(string filepath) {
+Document::Document(string filepath, string filename) {
     this->filepath = filepath;
+    this->filename = filename;
     loadFile();
+}
+
+void Document::setName(const string& newfilename) {
+    filename = newfilename;
+}
+
+string Document::getName() const {
+    return filename;
 }
 
 void Document::createObject(string objectID, json object) {

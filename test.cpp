@@ -178,7 +178,7 @@ TEST(JsonStrings, BasicOperations)
 }
 
 TEST(DocumentTest, CreateAndGet) {
-    Document doc("test.json");
+    Document doc("test.json", "Document Name");
 
     string objectId = "Object_1";
     json obj = {
@@ -192,7 +192,7 @@ TEST(DocumentTest, CreateAndGet) {
 }
 
 TEST(DocumentTest, DeleteObject) {
-    Document doc("test.json");
+    Document doc("test.json", "Document Name");
 
     string objectId = "Object_1";
     json obj = {
@@ -207,7 +207,7 @@ TEST(DocumentTest, DeleteObject) {
 }
 
 TEST(DocumentTest, UpdateDocument) {
-    Document doc("test.json");
+    Document doc("test.json", "Document Name");
 
     string objectId = "Object_1";
     json obj = {
@@ -217,14 +217,14 @@ TEST(DocumentTest, UpdateDocument) {
     doc.createObject(objectId, obj);
     doc.updateDocument();
 
-    Document updatedDoc("test.json");
+    Document updatedDoc("test.json", "Document Name");
 
     json getObj = updatedDoc.getObject(objectId);
     EXPECT_EQ(getObj, obj);
 }
 
 TEST(DocumentTest, ListObjectIDs) {
-    Document doc("test.json");
+    Document doc("test.json", "Document Name");
 
     string objectId1 = "Object_1";
     json obj1 = {
@@ -248,7 +248,7 @@ TEST(DocumentTest, ListObjectIDs) {
 }
 
 TEST(DocumentTest, ClearContent) {
-    Document doc("test.json");
+    Document doc("test.json", "Document Name");
 
     string objectId = "Object_1";
     json obj = {
@@ -260,4 +260,14 @@ TEST(DocumentTest, ClearContent) {
 
     json getObj = doc.getObject(objectId);
     EXPECT_TRUE(getObj.empty());
+}
+
+TEST(DocumentTest, FileName) {
+    Document doc("test.json", "Document Name");
+    string docName = doc.getName();
+    EXPECT_EQ("Document Name", docName);
+
+    doc.setName("New Document Name");
+    docName = doc.getName();
+    EXPECT_EQ("New Document Name", docName);
 }
