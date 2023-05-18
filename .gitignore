@@ -11,3 +11,4 @@ testHarness
 *.out
 backend/userDatabase.hpp
 frontend/citrusdb/node_modules/
+/Crow/
