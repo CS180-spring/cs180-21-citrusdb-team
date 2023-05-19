@@ -7,10 +7,14 @@ Collection::Collection() {}
 
 Collection::Collection(string filepath) {
     this->filepath = filepath;
+    //create metadata file; one metadata file for each collection; ensure user doc doesn't match meta data file name
+    //metadata file stores name of json doc and what columns are being displayed on frontend in respective collection
+    //standard stream
 }
 
-int Collection::createDocument(string documentName, string jsonTemplate) {
-    
+int Collection::createDocument(string documentName, json jsonTemplate) {
+    //creates json doc and stores it in the file path
+    //standard stream
 }
 
 int Collection::deleteDocument(string documentName) {
@@ -79,7 +83,7 @@ map<string, Document> Collection::getMap() {
 }
 
 void Collection::createObject(string objectID, json object) {
-
+    
 }
 
 void Collection::deleteObject(string objectID) {
@@ -90,8 +94,9 @@ void Collection::updateDocument() {
 
 }
 
-json Collection::getObject(string objectID) {
-
+json Collection::getObject(string objectID, string documentName) {
+    //value = map[key]
+    //value.getObject(objectID);
 }
 
 vector<string> Collection::listObjectIDs() {

@@ -4,9 +4,11 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <./nlohmann/json.hpp>
 
 class Document;
 
+using json = nlohmann::ordered_json;
 using namespace std;
 
 class Collection {
@@ -14,6 +16,7 @@ private:
     string filePath;
     
     map<string, Document> documents;
+    
 public:
     Collection(string filePath);
     
