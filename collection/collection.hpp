@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 class Document;
 
@@ -12,8 +13,7 @@ class Collection {
 private:
     string filePath;
     
-    vector<Document> documents;
-    
+    map<string, Document> documents;
 public:
     Collection(string filePath);
     
@@ -23,11 +23,13 @@ public:
 
     int renameDocument(string oldDocumentName, string newDocumentName);
 
-    int replaceDocument(string originalDocumentName, string newDocumentName);
+    int replaceDocument(string originalDocumentName, string newDocumentName, Document newDocument);
 
     Document getDocument(string documentName);
-
+    
     vector<Document> getDocuments();
+    
+    map<string, Document> getMap();
     
     int createObject();
 
