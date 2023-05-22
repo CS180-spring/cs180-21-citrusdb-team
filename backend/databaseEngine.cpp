@@ -68,7 +68,7 @@ int DatabaseEngine::createUser(const std::string &username, const std::string &e
 /// @param username 
 /// @param password 
 /// @return a bool whether the username and password combination is valid
-bool DatabaseEngine::loginCheck(const std::string &username, const std::string &password)
+bool DatabaseEngine::loginCheck(const std::string &username, const std::string &password) 
 {
     if (users.contains(username)){
 
@@ -92,7 +92,8 @@ bool DatabaseEngine::resetPassword(const std::string &username, const std::strin
 {
     if (users.contains(username)){
         if (users[username].getEmail() == email){
-            // reset password
+            // TODO: 
+            // reset password email to be implemented
             return true;
         }
         else{
@@ -124,7 +125,7 @@ bool DatabaseEngine::updatePassword(const std::string &username, const std::stri
     }
 }
 
-/// @brief Gets the user. Does not check if such username actually exists
+/// @brief Gets the user. Does not check if such username actually exists. Does not update file
 /// @param username 
 /// @return 
 UserDatabase DatabaseEngine::getUser(const std::string &username)
