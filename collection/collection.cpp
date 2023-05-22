@@ -82,27 +82,33 @@ map<string, Document> Collection::getMap() {
     return documents;
 }
 
-void Collection::createObject(string objectID, json object) {
-    
+void Collection::createObject(string objectID, json object, string documentName) {
+    map<string, Document> documents = getMap();
+    documents[documentName].createObject(objectID, object);
 }
 
-void Collection::deleteObject(string objectID) {
-
+void Collection::deleteObject(string objectID, string documentName) {
+    map<string, Document> documents = getMap();
+    documents[documentName].deleteObject(objectID);
+    //this->getMap()[documentName].deleteObject(objectID);
 }
 
-void Collection::updateDocument() {
-
+void Collection::updateDocument(string documentName) {
+    map<string, Document> documents = getMap();
+    documents[documentName].updateDocument();
 }
 
 json Collection::getObject(string objectID, string documentName) {
-    //value = map[key]
-    //value.getObject(objectID);
+    map<string, Document> documents = getMap();
+    documents[documentName].getObject(objectID);
 }
 
-vector<string> Collection::listObjectIDs() {
-
+vector<string> Collection::listObjectIDs(string documentName) {
+    map<string, Document> documents = getMap();
+    documents[documentName].listObjectIDs();
 }
 
-json Collection::getContent() {
-
+json Collection::getContent(string documentName) {
+    map<string, Document> documents = getMap();
+    documents[documentName].getContent();
 }
