@@ -100,15 +100,15 @@ void Collection::updateDocument(string documentName) {
 
 json Collection::getObject(string objectID, string documentName) {
     map<string, Document> documents = getMap();
-    documents[documentName].getObject(objectID);
+    return documents[documentName].getObject(objectID);
 }
 
 vector<string> Collection::listObjectIDs(string documentName) {
     map<string, Document> documents = getMap();
-    documents[documentName].listObjectIDs();
+    return documents[documentName].listObjectIDs();
 }
 
 json Collection::getContent(string documentName) {
     map<string, Document> documents = getMap();
-    documents[documentName].getContent();
+    return documents[documentName].getContent();
 }
