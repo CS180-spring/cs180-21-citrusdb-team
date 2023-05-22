@@ -1,6 +1,7 @@
 #ifndef DATABASENGINE_HPP
 #define DATABASENGINE_HPP
 #include <unordered_map>
+#include <map>
 #include <string>
 #include "../nlohmann/json.hpp"
 #include "file.hpp"
@@ -10,6 +11,7 @@ class DatabaseEngine{
     private:
     // map between username <-> userDatabase
     std::unordered_map<std::string, UserDatabase> users;
+    void writeToFile() const;
     public:
     DatabaseEngine();
     int createUser(const std::string& username, const std::string& email, const std::string& password);

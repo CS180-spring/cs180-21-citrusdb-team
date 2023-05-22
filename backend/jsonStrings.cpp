@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "jsonStrings.hpp"
-#include <nlohmann/json.hpp>
+#include "../nlohmann/json.hpp"
 
 using json = nlohmann::ordered_json;
 using namespace std;

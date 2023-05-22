@@ -1,10 +1,32 @@
 #include "databaseEngine.hpp"
 
+void DatabaseEngine::writeToFile() const
+{
+    using json = nlohmann::json;
+    using namespace std;
+    json j_users;
+    vector<map<string, string>> list;
+    for (const auto i:users){
+        map<string, string>  account = {
+                {"username", i.second.getUsername()},
+                {"email", i.second.getEmail()},
+                {"password", i.second.getPassword()}
+            };
+        list.emplace_back(account);
+    }
+    j_users["users"] = list;
+    ofstream output;
+    output.open("_metaDB.json");
+    output << j_users.dump(4);
+    output.close();
+}
+
+
 /// @brief Creates the Database Engine populating with the users listed in the metadata file
 DatabaseEngine::DatabaseEngine()
 {
     using json = nlohmann::json;
-    json j_file = json::parse(readFile("database/_metaDB.json"));
+    json j_file = json::parse(readFile("../database/_metaDB.json"));
     json j_users = j_file["users"];
 
     for (json j_user : j_users ){
@@ -38,6 +60,7 @@ int DatabaseEngine::createUser(const std::string &username, const std::string &e
         return -2;
     // all "checks" are complete; good to create user
     users[username] = UserDatabase(username, email, password);
+    writeToFile();
     return 1;
 }
 
@@ -93,6 +116,7 @@ bool DatabaseEngine::updatePassword(const std::string &username, const std::stri
             return false;
         }
         users[username].setPassword(newPassword);
+        writeToFile();
         return true;
     }
     else{
@@ -115,9 +139,17 @@ bool DatabaseEngine::deleteUser(const std::string &username)
 {
     if (users.contains(username)){
         users.erase(username);
+        writeToFile();
         return true;
     }
     else{
         return false;
     }
+}
+
+int main(){
+    DatabaseEngine dbe;
+    dbe.createUser("user", "poppler@gmail.com", "password2");
+    dbe.deleteUser("alice");
+    return 0;
 }
