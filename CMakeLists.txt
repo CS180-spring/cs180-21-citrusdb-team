@@ -14,6 +14,7 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+
 # Find asio
 set(ASIO_INCLUDE_DIR /home/linuxbrew/.linuxbrew/opt/asio/include)
 list(APPEND CMAKE_MODULE_PATH /home/linuxbrew/.linuxbrew/opt/Crow/cmake)
@@ -40,10 +41,8 @@ add_executable(
   # backend/jsonStrings.cpp
   # backend/file.cpp
   # test.cpp
-  main
   ./frontend/citrusdb/src/components/API/main.cpp
 )
-
 
 add_test(
   NAME testHarness
@@ -61,3 +60,4 @@ target_link_libraries(main PRIVATE Boost::system)
 include(GoogleTest)
 # gtest_discover_tests(testHarness)
 include_directories(json-develop/include)
+
