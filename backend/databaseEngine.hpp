@@ -13,14 +13,14 @@ class DatabaseEngine{
     private:
     // map between username <-> userDatabase
     std::unordered_map<std::string, UserDatabase> users;
-    void writeToFile() const;
+    void writeToFile(const nlohmann::json& content) const;
     public:
     // DatabaseEngine Dealing with users
 
     DatabaseEngine();
     int createUser(const std::string& username, const std::string& email, const std::string& password);
-    bool loginCheck(const std::string& username, const std::string& password);
-    bool resetPassword(const std::string& username, const std::string& email);
+    bool loginCheck(const std::string& username, const std::string& password) const;
+    bool resetPassword(const std::string& username, const std::string& email) const;
     bool updatePassword(const std::string& username, const std::string& newPassword);
     UserDatabase getUser(const std::string& username);
     bool deleteUser(const std::string& username);
@@ -33,9 +33,9 @@ class DatabaseEngine{
     int renameDocument(const std::string& username, const std::string& collection, const std::string& oldDoc, const std::string& newDoc);
     // Check if parameters make sense
     int replaceDocument(const std::string& username, const std::string& collection, const std::string& fromDoc, const std::string& toDoc);
-    Document getDocument(const std::string& username, const std::string& collection, const std::string& document);
+    Document* getDocument(const std::string& username, const std::string& collection, const std::string& document);
     // also check if parameters make sense
-    std::map<std::string, Document> getDocuments(const std::string& username, const std::string& collection, const std::string& document);
+    std::map<std::string, Document>* getDocuments(const std::string& username, const std::string& collection);
     nlohmann::json getContent(const std::string& username, const std::string& collection, const std::string& document);
     int createObject(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
     int deleteObject(const std::string& username, const std::string& collection, const std::string& document, const std::string& objectID);
