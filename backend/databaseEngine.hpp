@@ -21,7 +21,7 @@ class DatabaseEngine{
     int createUser(const std::string& username, const std::string& email, const std::string& password);
     bool loginCheck(const std::string& username, const std::string& password) const;
     bool resetPassword(const std::string& username, const std::string& email) const;
-    bool updatePassword(const std::string& username, const std::string& newPassword);
+    bool updatePassword(const std::string& username, const std::string& newPassword) const;
     UserDatabase getUser(const std::string& username);
     bool deleteUser(const std::string& username);
 

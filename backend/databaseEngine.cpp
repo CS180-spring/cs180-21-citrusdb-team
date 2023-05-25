@@ -17,7 +17,7 @@ DatabaseEngine::DatabaseEngine()
     json j_file = json::parse(readFile("database/_metaDB.json"));
     json j_users = j_file["users"];
 
-    for (json j_user : j_users)
+    for (json &j_user : j_users)
     {
         std::string username = to_string(j_user["username"]);
         username = username.substr(1, username.size() - 2);
@@ -36,7 +36,7 @@ int DatabaseEngine::createUser(const std::string &username, const std::string &e
     if (users.contains(username))
         return -3;
     json j_file = json::parse(readFile("database/_metaDB.json"));
-    for (const auto json &j_user : j_file["users"])
+    for (const json &j_user : j_file["users"])
     {
         std::string existingEmail = to_string(j_user["email"]);
         existingEmail = existingEmail.substr(1, existingEmail.size() - 2);
@@ -64,7 +64,7 @@ bool DatabaseEngine::loginCheck(const std::string &username, const std::string &
     if (users.contains(username))
     {
         json j_file = json::parse(readFile("database/_metaDB.json"));
-        for (const auto json &j_user : j_file["users"])
+        for (const json &j_user : j_file["users"])
         {
             std::string existingUsername = to_string(j_user["username"]);
             existingUsername = existingUsername.substr(1, existingUsername.size() - 2);
@@ -72,13 +72,14 @@ bool DatabaseEngine::loginCheck(const std::string &username, const std::string &
             {
                 std::string existingPassword = to_string(j_user["password"]);
                 existingPassword = existingPassword.substr(1, existingPassword.size() - 2);
-                if (existingPassword == password){
+                if (existingPassword == password)
+                {
                     return true;
                 }
-                else{
+                else
+                {
                     return false;
                 }
-
             }
         }
         // something went really wrong if reached here
@@ -95,12 +96,12 @@ bool DatabaseEngine::loginCheck(const std::string &username, const std::string &
 /// @param username
 /// @param email
 /// @return
-bool DatabaseEngine::resetPassword(const std::string &username, const std::string &email) const 
+bool DatabaseEngine::resetPassword(const std::string &username, const std::string &email) const
 {
     if (users.contains(username))
     {
         json j_file = json::parse(readFile("database/_metaDB.json"));
-        for (const auto json &j_user : j_file["users"])
+        for (const json &j_user : j_file["users"])
         {
             std::string existingUsername = to_string(j_user["username"]);
             existingUsername = existingUsername.substr(1, existingUsername.size() - 2);
@@ -112,11 +113,11 @@ bool DatabaseEngine::resetPassword(const std::string &username, const std::strin
                 {
                     return true;
                 }
-                else{
+                else
+                {
                     return false;
                 }
             }
-            
         }
         return false;
     }
@@ -135,7 +136,18 @@ bool DatabaseEngine::updatePassword(const std::string &username, const std::stri
 {
     if (users.contains(username))
     {
-        
+        json j_file = json::parse(readFile("database/_metaDB.json"));
+        for (json &j_user : j_file["users"])
+        {
+            std::string existingUsername = to_string(j_user["username"]);
+            existingUsername = existingUsername.substr(1, existingUsername.size() - 2);
+            if (existingUsername == username)
+            {
+                j_user["password"] = newPassword;
+                writeToFile(j_file);
+            }
+        }
+        return false;
     }
     else
     {
@@ -159,12 +171,21 @@ bool DatabaseEngine::deleteUser(const std::string &username)
     if (users.contains(username))
     {
         users.erase(username);
-        writeToFile();
-        return true;
+        json j_file = json::parse(readFile("database/_metaDB.json"));
+        for (json &j_user : j_file["users"])
+        {
+            std::string existingUsername = to_string(j_user["username"]);
+            existingUsername = existingUsername.substr(1, existingUsername.size() - 2);
+            if (existingUsername == username)
+            {
+
+                writeToFile(j_file);
+            }
+        }
+        return false;
     }
     else
     {
         return false;
     }
 }
-
