@@ -170,7 +170,6 @@ bool DatabaseEngine::deleteUser(const std::string &username)
 {
     if (users.contains(username))
     {
-        users.erase(username);
         json j_file = json::parse(readFile("database/_metaDB.json"));
         for (json &j_user : j_file["users"])
         {
@@ -179,6 +178,7 @@ bool DatabaseEngine::deleteUser(const std::string &username)
             if (existingUsername == username)
             {
                 j_file["users"].erase(j_user);
+                users.erase(username);
                 writeToFile(j_file);
             }
         }
@@ -188,4 +188,9 @@ bool DatabaseEngine::deleteUser(const std::string &username)
     {
         return false;
     }
+}
+
+int DatabaseEngine::createCollection(const std::string &username, const std::string &collection)
+{
+    return users[username].createCollection(collection);
 }

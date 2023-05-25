@@ -9,4 +9,3 @@ Makefile
 testHarness
 /.vscode/
 *.out
-backend/userDatabase.hpp

@@ -27,7 +27,7 @@ class DatabaseEngine{
 
     // Access underlying data beneath UserDatabase
 
-    int createCollection(const std::string& username, const std::string& collection, const std::vector<std::string>& templateFile);
+    int createCollection(const std::string& username, const std::string& collection);
     int deleteCollection(const std::string& username, const std::string& collection);
 
     int renameDocument(const std::string& username, const std::string& collection, const std::string& oldDoc, const std::string& newDoc);
