@@ -178,7 +178,7 @@ bool DatabaseEngine::deleteUser(const std::string &username)
             existingUsername = existingUsername.substr(1, existingUsername.size() - 2);
             if (existingUsername == username)
             {
-
+                j_file["users"].erase(j_user);
                 writeToFile(j_file);
             }
         }
