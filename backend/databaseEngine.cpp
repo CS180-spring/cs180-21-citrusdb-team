@@ -158,9 +158,9 @@ bool DatabaseEngine::updatePassword(const std::string &username, const std::stri
 /// @brief Gets the user. Does not check if such username actually exists. Does not update file
 /// @param username
 /// @return
-UserDatabase DatabaseEngine::getUser(const std::string &username)
+UserDatabase* DatabaseEngine::getUser(const std::string &username)
 {
-    return users[username];
+    return &users[username];
 }
 
 /// @brief Delete the associated user database. Return true if done. Return false if not.
@@ -193,4 +193,69 @@ bool DatabaseEngine::deleteUser(const std::string &username)
 int DatabaseEngine::createCollection(const std::string &username, const std::string &collection)
 {
     return users[username].createCollection(collection);
+}
+
+int DatabaseEngine::deleteCollection(const std::string &username, const std::string &collection)
+{
+    return users[username].deleteCollection(collection);
+}
+
+int DatabaseEngine::renameCollection(const std::string &username, const std::string &oldName, const std::string &newName)
+{
+    return users[username].renameCollection(oldName, newName);
+}
+
+Collection *DatabaseEngine::getCollection(const std::string &username, const std::string &collection)
+{
+    return users[username].getCollection(collection);
+}
+
+std::unordered_map<std::string, Collection> *DatabaseEngine::getCollections(const std::string &username)
+{
+    return users[username].getCollections();
+}
+
+int DatabaseEngine::renameDocument(const std::string &username, const std::string &collection, const std::string &oldDoc, const std::string &newDoc)
+{
+    return users[username].renameDocument(collection, oldDoc, newDoc);
+}
+
+int DatabaseEngine::replaceDocument(const std::string &username, const std::string &collection, const std::string &fromDoc, const std::string &toDoc)
+{
+    return users[username].replaceDocument(collection, fromDoc, toDoc);
+}
+
+Document *DatabaseEngine::getDocument(const std::string &username, const std::string &collection, const std::string &document)
+{
+    return users[username].getDocument(collection, document);
+}
+
+nlohmann::json DatabaseEngine::getContent(const std::string &username, const std::string &collection, const std::string &document)
+{
+    return users[username].getContent(collection, document);
+}
+
+int DatabaseEngine::createObject(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
+{
+    return users[username].createObject(collection, document, object);
+}
+
+int DatabaseEngine::deleteObject(const std::string &username, const std::string &collection, const std::string &document, const std::string &objectID)
+{
+    return users[username].createObject(collection, document, objectID);
+}
+
+int DatabaseEngine::updateDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
+{
+    return users[username].updateDocument(collection, document, object);
+}
+
+nlohmann::json DatabaseEngine::getObject(const std::string &username, const std::string &collection, const std::string &document, const std::string &objectID)
+{
+    return users[username].getObject(collection, document, objectID);
+}
+
+std::vector<std::string> DatabaseEngine::listObjectIDs(const std::string &username, const std::string &collection, const std::string &document)
+{
+    return users[username].listObjectIDs(collection, document);
 }
