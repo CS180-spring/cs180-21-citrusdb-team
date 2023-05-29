@@ -143,7 +143,7 @@ TEST(DBEngine, AddUsers){
     int fail_bad_password = dbe.createUser("user3", "temporary@not-real.com", ".");
     EXPECT_EQ(fail_bad_password, -2);
     ofstream o;
-    o.open("../_metaDB.json");
+    o.open("database/_metaDB.json");
     o << backup;
     o.close();
 }
@@ -161,7 +161,7 @@ TEST(DBEngine, AddAndDeleteUsers){
     ASSERT_TRUE(dbe.deleteUser("bob"));
     ASSERT_FALSE(dbe.deleteUser("bob"));
     ofstream o;
-    o.open("../_metaDB.json");
+    o.open("database/_metaDB.json");
     o << backup;
     o.close();
 }
@@ -173,7 +173,7 @@ TEST(DBEngine, Logins){
     ASSERT_FALSE(dbe.loginCheck("alice", "wrong"));
     ASSERT_FALSE(dbe.loginCheck("not_existent", "m"));
     ofstream o;
-    o.open("../_metaDB.json");
+    o.open("database/_metaDB.json");
     o << backup;
     o.close();
 }
@@ -188,9 +188,9 @@ TEST(DBEngine, ChangePasswords){
     ASSERT_FALSE(dbe.updatePassword("alice", "b"));
     string pwd = "strong_password";
     ASSERT_TRUE(dbe.updatePassword("alice", pwd));
-    EXPECT_EQ(pwd, dbe.getUser("alice").getPassword());
+    ASSERT_TRUE(dbe.loginCheck("alice", pwd));
     ofstream o;
-    o.open("../_metaDB.json");
+    o.open("database/_metaDB.json");
     o << backup;
     o.close();
 }
