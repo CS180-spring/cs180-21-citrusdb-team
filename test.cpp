@@ -2,6 +2,7 @@
 #include <string>
 #include <variant>
 #include "backend/jsonStrings.hpp"
+#include "backend/document.hpp"
 #include "backend/file.hpp"
 #include "backend/databaseEngine.hpp"
 
@@ -217,4 +218,87 @@ TEST(JsonStrings, BasicOperations)
     }
 }
 
+TEST(DocumentTest, CreateAndGet) {
+    Document doc("test.json");
 
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}
+    };
+    doc.createObject(objectId, obj);
+    json getObj = doc.getObject(objectId);
+
+    EXPECT_EQ(obj, getObj);
+}
+
+TEST(DocumentTest, DeleteObject) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}
+    };
+    doc.createObject(objectId, obj);
+    doc.deleteObject(objectId);
+
+    json getObj = doc.getObject(objectId);
+    EXPECT_TRUE(getObj.empty());
+}
+
+TEST(DocumentTest, UpdateDocument) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}
+    };
+    doc.createObject(objectId, obj);
+    doc.updateDocument();
+
+    Document updatedDoc("test.json");
+
+    json getObj = updatedDoc.getObject(objectId);
+    EXPECT_EQ(getObj, obj);
+}
+
+TEST(DocumentTest, ListObjectIDs) {
+    Document doc("test.json");
+
+    string objectId1 = "Object_1";
+    json obj1 = {
+        {"name", "John"},
+        {"age", 30}       
+    };
+    doc.createObject(objectId1, obj1);
+
+    string objectId2 = "Object_2";
+    json obj2 = {
+        {"name", "Jeff"},
+        {"age", 28}
+    };
+    doc.createObject(objectId2, obj2);
+
+    vector<string> objectIDs = doc.listObjectIDs();
+
+    EXPECT_EQ(objectIDs.size(), 2);
+    EXPECT_EQ(objectIDs[0], objectId1);
+    EXPECT_EQ(objectIDs[1], objectId2);
+}
+
+TEST(DocumentTest, ClearContent) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}        
+    };
+    doc.createObject(objectId, obj);
+    doc.clearContent();
+
+    json getObj = doc.getObject(objectId);
+    EXPECT_TRUE(getObj.empty());
+}
