@@ -1,3 +1,5 @@
+#ifndef DOCUMENT_HPP
+#define DOCUMENT_HPP
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -33,5 +35,5 @@ public:
 
 private:
     string filepath;
-    json content;
 };
+#endif

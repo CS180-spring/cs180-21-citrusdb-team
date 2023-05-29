@@ -1,3 +1,5 @@
+#ifndef COLLECTION_HPP
+#define COLLECTION_HPP
 #include <string>
 #include <vector>
 #include "document.hpp"
@@ -19,3 +21,4 @@ public:
 private:
     vector<Document> documents;
 };
+#endif

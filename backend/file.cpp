@@ -40,8 +40,7 @@ bool uploadFile(const std::string filename){
     return true;
 }
 
-//Commenting out this function because it's not necessary for this class specifically; this class is purely for checking whether a file exists in the database 
-string readFile(const string filepath){
+string readFile(const string& filepath){
     ifstream input;
     input.open(filepath);
     ostringstream sstr;
