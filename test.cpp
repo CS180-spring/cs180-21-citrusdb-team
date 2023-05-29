@@ -123,7 +123,7 @@ TEST(BasicOperations, UploadFile){
 }
 
 
-TEST(DBEngine, Initilization){
+TEST(DBEngine, Logins){
     DatabaseEngine dbe;
     ASSERT_TRUE(dbe.loginCheck("alice", "m"));
     ASSERT_FALSE(dbe.loginCheck("nonexistent", "m"));
@@ -131,6 +131,8 @@ TEST(DBEngine, Initilization){
 
 TEST(DBEngine, AddUsers){
     DatabaseEngine dbe;
+    // back up file and rewrite it once the test case is done 
+    string backup = readFile("database/_metaDB.json");
     int passed = dbe.createUser("user1", "temp@example.com", "pwd123");
     EXPECT_EQ(passed, 1);
     int fail_existing_username = dbe.createUser("user1", "12345@example.edu", "qwerty");
@@ -140,9 +142,15 @@ TEST(DBEngine, AddUsers){
     ASSERT_FALSE(dbe.deleteUser("user2"));
     int fail_bad_password = dbe.createUser("user3", "temporary@not-real.com", ".");
     EXPECT_EQ(fail_bad_password, -2);
+    ofstream o;
+    o.open("../_metaDB.json");
+    o << backup;
+    o.close();
 }
 
 TEST(DBEngine, AddAndDeleteUsers){
+    // back up file and rewrite it once the test case is done 
+    string backup = readFile("database/_metaDB.json");
     DatabaseEngine dbe;
     ASSERT_TRUE(dbe.deleteUser("alice"));
     ASSERT_FALSE(dbe.deleteUser("alice"));
@@ -152,17 +160,26 @@ TEST(DBEngine, AddAndDeleteUsers){
     ASSERT_FALSE(dbe.deleteUser("user1"));
     ASSERT_TRUE(dbe.deleteUser("bob"));
     ASSERT_FALSE(dbe.deleteUser("bob"));
+    ofstream o;
+    o.open("../_metaDB.json");
+    o << backup;
+    o.close();
 }
 
 TEST(DBEngine, Logins){
+    string backup = readFile("database/_metaDB.json");
     DatabaseEngine dbe;
     ASSERT_TRUE(dbe.loginCheck("alice", "m"));
     ASSERT_FALSE(dbe.loginCheck("alice", "wrong"));
     ASSERT_FALSE(dbe.loginCheck("not_existent", "m"));
-
+    ofstream o;
+    o.open("../_metaDB.json");
+    o << backup;
+    o.close();
 }
 
 TEST(DBEngine, ChangePasswords){
+    string backup = readFile("database/_metaDB.json");
     DatabaseEngine dbe;
     ASSERT_TRUE(dbe.resetPassword("alice", "alice@example.com"));
     ASSERT_FALSE(dbe.resetPassword("not_exist", "alice@example.com"));
@@ -172,6 +189,10 @@ TEST(DBEngine, ChangePasswords){
     string pwd = "strong_password";
     ASSERT_TRUE(dbe.updatePassword("alice", pwd));
     EXPECT_EQ(pwd, dbe.getUser("alice").getPassword());
+    ofstream o;
+    o.open("../_metaDB.json");
+    o << backup;
+    o.close();
 }
 
 TEST(JsonStrings, BasicOperations)
