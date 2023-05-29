@@ -1,34 +1,57 @@
+#ifndef _DOCUMENT_HPP_
+#define _DOCUMENT_HPP_
+
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <./nlohmann/json.hpp>
 using json = nlohmann::ordered_json;
 
-class Document {
+class Document{
 private:
-    std::string filepath;
+    std::string fileName;
     
 public:
-    // constructors
-    Document();
-    Document(std::string filepath);
+    //basic constructor used to recreate a file if the server goes down.
+    Document(std::string fileName);
 
-    // CRUD
-    void createObject(std::string objectID, json object);
-    void deleteObject(std::string objectID);
-    void updateDocument();
+    //constructor used when a file is actually being created in the database
+    Document(std::string fileName, std::string filePath ,json content);
 
-    // Retrieves a JSON object with the given ID from the document
-    json getObject(std::string objectID);
+    //renames the document in the file structure, updates fileName variable
+    int renameDocument(std::string filepath, std::string newName);
 
-    // returns a vector of all object IDs in the document
-    std::vector<std::string> listObjectIDs();
+    //adds an object to the document.
+    //if object ID provided already exists in the database, existing object is overwritten, functioning as update.
+    //object structure is as follows:
+    /*
+    "id":
+    {
+        "id": "provided by function call"
+        "originFile": "this->fileName"
+        any other relevant values
+    }
+    */
+    int createObject(std::string filepath, std::string objectID, json object);
+    
+    //deletes an object with a given id from the document
+    int deleteObject(std::string filepath, std::string objectID);
 
+    //checks if an object exists within the json document with given objectID.
+    //returns -1 if object is not present, 1 if object is not present.
+    int checkObject(std::string filepath, std::string objectID);
 
-    // returns the current content of the document
-    json getContent();
+    //returns object with a given id.
+    //if object exists, will return properly, otherwise will have unknown behavior.
+    json getObject(std::string filepath, std::string objectID);
 
-    void loadFile();
-    void saveFile();
-    void clearContent();
+    //basic getter
+    std::string getFileName();
+
+    //basic setter
+    void setFileName(std::string newFileName);
+
+    //basic getter, returns full content of json document
+    json getContent(std::string filepath);
 };
+
+#endif
