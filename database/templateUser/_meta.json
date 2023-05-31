@@ -1,0 +1,9 @@
+{
+    "_meta.json":
+    {
+        "username": "templateUser",
+        "password": "template",
+        "email": "template@email.com"
+    },
+    "templateCollection": "templateCollection"
+}

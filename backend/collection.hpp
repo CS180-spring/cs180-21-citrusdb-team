@@ -1,3 +1,6 @@
+#ifndef _COLLECTION_HPP_
+#define _COLLECTION_HPP_
+
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -20,7 +23,6 @@ public:
     Collection(std::string filepath, std::string collectionName, std::string templateVariables);
 
     int createDocument(std::string filepath, std::string documentName, json content);
-    int renameDocument(std::string filepath, std::string oldDocumentName, std::string newDocumentName);
     int deleteDocument(std::string filepath, std::string documentName);
     int replaceDocument(std::string filepath, std::string documentName, json content);
     int checkDocument(std::string documentName);
@@ -35,3 +37,5 @@ public:
     int checkObject(std::string filepath, std::string documentName, std::string objectID);
     json getObject(std::string filepath, std::string documentName, std::string objectID);
 };
+
+#endif

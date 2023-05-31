@@ -1,13 +1,45 @@
 #include "collection.hpp"
 
 Collection::Collection(std::string filepath, std::string collectionName){
-
+    
 }
 
 Collection::Collection(std::string filepath, std::string collectionName, std::string templateVariables){
 
 }
 
+int Collection::createDocument(std::string filepath, std::string documentName, json content){
+
+
+}
+int Collection::deleteDocument(std::string filepath, std::string documentName){
+
+}
+
+int Collection::replaceDocument(std::string filepath, std::string documentName, json content){
+
+}
+
+int Collection::checkDocument(std::string documentName){
+    if(this->getDocuments()->find(documentName) != this->getDocuments()->end()){
+        return 1;
+    }
+    else{
+        return -1;
+    }
+}
+
+Document Collection::getDocument(std::string documentName){
+    return (*this->getDocuments())[documentName];
+}
+
+std::string Collection::getCollectionName(){
+    return this->collectionName;
+}
+
+std::unordered_map<std::string, Document>* Collection::getDocuments(){
+    return &this->documents;
+}
 
 //start passthrough functions to Document
 
@@ -22,7 +54,7 @@ int Collection::renameDocument(std::string filepath, std::string oldDocumentName
             return -3;
         }
         else{
-            if(this->getDocument(oldDocumentName).renameDocument(filepath, newDocumentName) == 1){
+            if(this->getDocument(oldDocumentName).renameDocument(workingPath, newDocumentName) == 1){
                 json content;
 
                 fin >> content;
@@ -34,7 +66,7 @@ int Collection::renameDocument(std::string filepath, std::string oldDocumentName
                 fout.open(metaPath, std::ofstream::trunc);
 
                 fout << content;
-                
+
                 Document temp = this->getDocument(oldDocumentName);
                 this->getDocuments()->erase(oldDocumentName);
                 this->getDocuments()->emplace(newDocumentName, temp);
