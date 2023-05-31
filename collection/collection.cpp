@@ -6,7 +6,7 @@ using namespace std;
 Collection::Collection() {}
 
 Collection::Collection(string filepath) {
-    this->filepath = filepath;
+    this->filePath = filePath;
     //create metadata file; one metadata file for each collection; ensure user doc doesn't match meta data file name
     //metadata file stores name of json doc and what columns are being displayed on frontend in respective collection
     //standard stream
@@ -15,6 +15,11 @@ Collection::Collection(string filepath) {
 int Collection::createDocument(string documentName, json jsonTemplate) {
     //creates json doc and stores it in the file path
     //standard stream
+    //./Database/UserName/collectionName/documentName
+    //this->filePath + "/documentName"
+    fstream file;
+    file.open(documentName, ios::out);
+    file.close();
 }
 
 int Collection::deleteDocument(string documentName) {
