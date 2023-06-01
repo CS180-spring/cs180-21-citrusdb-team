@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components/Login/Login';
-import Dashboard from './components/Dashboard/Dashboard';
-import Register from './components/Register/Register';
-import Forgot from './components/Forgot/Forgot';
+import Login from './components/Login/Login.js';
+import Dashboard from './components/Dashboard/Dashboard.js';
+import Register from './components/Register/Register.js';
+import Forgot from './components/Forgot/Forgot.js';
 
 /*
   Credit 
