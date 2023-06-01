@@ -1,6 +1,5 @@
-#ifndef _COLLECTION_HPP_
-#define _COLLECTION_HPP_
-
+#ifndef COLLECTION_HPP
+#define COLLECTION_HPP
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -38,5 +37,4 @@ public:
     int createObject(std::string filepath,std::string documentName, std::string objectID, json object);
     int deleteObject(std::string filepath, std::string documentName, std::string objectID);
 };
-
 #endif
