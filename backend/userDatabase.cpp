@@ -11,13 +11,13 @@ int UserDatabase::createCollection(std::string collectionName, json displayTempl
         std::string filepath = "./database/" + this->getDatabaseName() + "/" + collectionName;
 
         if(std::filesystem::create_directory(filepath)){
+            this->collections.emplace(collectionName, /*Collection(collectionName, displayTemplate)*/ Collection()); //commented section should be re-instituted upon collection implementation
+
             return 1;
         }
         else{
             return -2;
         }
-
-        this->collections.emplace(collectionName, /*Collection(collectionName, displayTemplate)*/ Collection()); //commented section should be re-instituted upon collection implementation
     }
     else{
         return -1;

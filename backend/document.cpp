@@ -44,8 +44,8 @@ int Document::createObject(std::string filepath, std::string objectID, json obje
     fin.close();
 
     content[objectID] = object;
-    content[objectID]["id"] = objectID;
-    content[objectID]["originFile"] = this->getFileName();
+    content[objectID]["_id"] = objectID;
+    content[objectID]["_originFile"] = this->getFileName();
 
     std::ofstream fout;
     fout.open(workingPath, std::ofstream::trunc);

@@ -24,10 +24,10 @@ public:
     //if object ID provided already exists in the database, existing object is overwritten, functioning as update.
     //object structure is as follows:
     /*
-    "id":
+    "provided by function call":
     {
-        "id": "provided by function call"
-        "originFile": "this->fileName"
+        "_id": "provided by function call"
+        "_originFile": "this->fileName"
         any other relevant values
     }
     */

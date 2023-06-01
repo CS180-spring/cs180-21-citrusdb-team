@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
+#include <filesystem>
 #include <./nlohmann/json.hpp>
 #include "document.hpp"
 using json = nlohmann::ordered_json;
@@ -26,7 +27,7 @@ public:
     int deleteDocument(std::string filepath, std::string documentName);
     int replaceDocument(std::string filepath, std::string documentName, json content);
     int checkDocument(std::string documentName);
-    Document getDocument(std::string documentName);
+    Document* getDocument(std::string documentName);
     std::string getCollectionName();
     std::unordered_map<std::string, Document>* getDocuments();
 
