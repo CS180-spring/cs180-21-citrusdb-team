@@ -1,5 +1,4 @@
 #include "crow.h"
-
 int main()
 {
     crow::SimpleApp app;
@@ -11,5 +10,5 @@ int main()
         return page.render(ctx); 
     });
 
-    app.port(8080).multithreaded().run();
+    app.port(80).multithreaded().run();
 }
