@@ -86,13 +86,23 @@ int Collection::deleteDocument(std::string filepath, std::string documentName){
     if(this->getDocuments()->find(collectionName) != this->getDocuments()->end()){
         std::string workingPath = filepath + "/" + this->getCollectionName() + "/" + documentName;
 
-        char wPath[workingPath.size() + 1];
-
-        strcpy(wPath, workingPath.c_str());
-
-        std::remove(wPath);
+        std::filesystem::remove(workingPath);
 
         this->getDocuments()->erase(documentName);
+
+        std::string metaPath = filepath + "/" = this->getCollectionName() + "/_meta.json";
+        json content;
+
+        std::ifstream fin(metaPath);
+
+        fin >> content;
+
+        content.erase(documentName);
+
+        std::ofstream fout;
+        fout.open(metaPath, std::ofstream::trunc);
+
+        fout << content;
 
         return 1;
     }

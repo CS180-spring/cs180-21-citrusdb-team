@@ -25,13 +25,10 @@ class UserDatabase{
         UserDatabase(std::string databaseName);
 
         //add a collection to a userDatabase, inserts folder to database structure, metadata file, and collections vector
-        int createCollection(std::string collectionName, json displayTemplate);
+        int createCollection(std::string collectionName, std::string displayTemplate);
 
         //delete a collection from a user database, should delete all documents from within the collection prior to deleting the collection
         int deleteCollection(std::string collectionName);
-
-        //renames a collection, should also rename the folder in the file structure and metadata file of collection
-        int renameCollection(std::string collectionName, std::string newCollectionName);
 
         int checkCollection(std::string collectionName);
 
@@ -53,12 +50,6 @@ class UserDatabase{
         int deleteDocument(std::string collectionName, std::string documentName);
 
         int replaceDocument(std::string collectionName, std::string documentName, json content);
-
-        int checkDocument(std::string collectionName, std::string documentName);
-
-        Document* getDocument(std::string collectionName, std::string documentName);
-
-        std::unordered_map<std::string, Document>* getDocuments(std::string collectionName);
 
         //start functions that are passthroughs to Document
 
