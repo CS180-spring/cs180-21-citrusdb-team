@@ -76,3 +76,14 @@ std::map<std::string, Collection>* UserDatabase::getCollections(){
     return &this->collections;
 }
 
+int UserDatabase::renameDocument(std::string collectionName, std::string oldDocumentName, std::string newDocumentName){
+
+}
+
+int UserDatabase::createObject(std::string collectionName,std::string documentName, std::string objectID, json object){
+
+}
+
+int UserDatabase::deleteObject(std::string collectionName, std::string documentName, std::string objectID){
+
+}

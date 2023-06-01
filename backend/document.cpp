@@ -22,10 +22,10 @@ int Document::renameDocument(std::string filepath, std::string newName){
 
     if(std::rename(cPath, nPath) == 0){
         this->setFileName(newName);
-        return -1;
+        return 1;
     }
     else{
-        return 1;
+        return -1;
     }
 }
 

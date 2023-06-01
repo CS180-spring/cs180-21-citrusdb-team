@@ -21,13 +21,7 @@ class UserDatabase{
         std::map<std::string, Collection> collections;
 
     public:
-
-        //basic constructor, should not be used
-        UserDatabase();
-
-        //only takes filepath in as input, all ofther information gathered from metadata file within the userDatabase
-        //metadata file is also named after the username, stores username, password, email of user
-            //also stores sorted list of all collections within the database
+        //only takes databaseName in as input, all ofther information gathered from metadata file within the userDatabase
         UserDatabase(std::string databaseName);
 
         //add a collection to a userDatabase, inserts folder to database structure, metadata file, and collections vector
@@ -38,6 +32,8 @@ class UserDatabase{
 
         //renames a collection, should also rename the folder in the file structure and metadata file of collection
         int renameCollection(std::string collectionName, std::string newCollectionName);
+
+        int checkCollection(std::string collectionName);
 
         //return specific Collection opbject, helper function for transporting calls to a specific function
         Collection* getCollection(std::string collectionName);
@@ -50,32 +46,25 @@ class UserDatabase{
 
 
         //start functions that are passthroughs to Collection
+        int renameCollection(std::string oldCollectionName, std::string newCollectionName);
 
-        int createDocument();
+        int createDocument(std::string collectionName, std::string documentName, json content);
 
-        int deleteDocument();
+        int deleteDocument(std::string collectionName, std::string documentName);
 
-        int renameDocument();
+        int replaceDocument(std::string collectionName, std::string documentName, json content);
 
-        int replaceDocument();
+        int checkDocument(std::string collectionName, std::string documentName);
 
-        Document getDocument();
+        Document* getDocument(std::string collectionName, std::string documentName);
 
-        std::map<std::string, Document> getDocuments();
+        std::unordered_map<std::string, Document>* getDocuments(std::string collectionName);
 
         //start functions that are passthroughs to Document
 
-        int createObject(int collectionIndex, int documentIndex, std::string objectID, json object);
+        int renameDocument(std::string collectionName, std::string oldDocumentName, std::string newDocumentName);
 
-        int deleteObject(int collectionIndex, int documentIndex, std::string objectID);
+        int createObject(std::string collectionName,std::string documentName, std::string objectID, json object);
 
-        int updateDocument(int collectionIndex, int documentIndex, std::string newDocument);
-
-        json getObject(int collectionIndex, int documentIndex, std::string objectID);
-
-        std::string listObjectIDs();
-
-        std::string getObjectID();
-
-        json getDocumentContent(int collectionIndex, int documentIndex);
+        int deleteObject(std::string collectionName, std::string documentName, std::string objectID);
 };

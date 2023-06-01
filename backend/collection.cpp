@@ -33,6 +33,23 @@ Collection::Collection(std::string filepath, std::string collectionName, std::st
     fout << content;
 }
 
+int Collection::renameCollection(std::string filepath, std::string oldCollectionName, std::string newCollectionName){
+    std::string currentPath = filepath + "/" + oldCollectionName;
+    std::string newPath = filepath + "/" + newCollectionName;
+
+    char cPath[currentPath.size() + 1];
+    char nPath[newPath.size() + 1];
+
+    std::strcpy(cPath, currentPath.c_str());
+    std::strcpy(nPath, newPath.c_str());if(std::rename(cPath, nPath) == 0){
+        this->setCollectionName(newCollectionName);
+        return 1;
+    }
+    else{
+        return -1;
+    }
+}
+
 int Collection::createDocument(std::string filepath, std::string documentName, json content){
     std::string workingPath = filepath + "/" + this->getCollectionName();
 
@@ -144,6 +161,10 @@ std::string Collection::getCollectionName(){
     return this->collectionName;
 }
 
+void Collection::setCollectionName(std::string newCollectionName){
+    this->collectionName = newCollectionName;
+}
+
 std::unordered_map<std::string, Document>* Collection::getDocuments(){
     return &this->documents;
 }
@@ -233,28 +254,6 @@ int Collection::deleteObject(std::string filepath, std::string documentName, std
         std::string workingPath = filepath + "/" + this->getCollectionName();
 
         return this->getDocument(documentName)->deleteObject(workingPath, objectID);
-    }
-    else{
-        return -1;
-    }
-}
-
-int Collection::checkObject(std::string filepath, std::string documentName, std::string objectID){
-    if(this->checkDocument(documentName) == 1){
-        std::string workingPath = filepath + "/" + this->getCollectionName();
-
-        return this->getDocument(documentName)->checkObject(workingPath, objectID);
-    }
-    else{
-        return -1;
-    }
-}
-
-json Collection::getObject(std::string filepath, std::string documentName, std::string objectID){
-    if(this->checkDocument(documentName) == 1){
-        std::string workingPath = filepath + "/" + this->getCollectionName();
-
-        return this->getDocument(documentName)->getObject(workingPath, objectID);
     }
     else{
         return -1;
