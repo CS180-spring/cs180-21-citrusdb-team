@@ -18,7 +18,7 @@ function Forgot() {
     return(
         <div className="forgot-wrapper">
                 <h1>CitrusDB</h1>
-                <h2>Register</h2>
+                <h2>Forgot Password</h2>
                 <img src={UCRLOGO} alt="UCRLOGO.png"/>
                 <form onSubmit={handleForgot}>
                     <label>

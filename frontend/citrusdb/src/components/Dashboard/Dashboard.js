@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUser } from '../Login/Login';
+import { getUser } from '../Login/Login.js';
 import UCRLOGO from '../../images/cutiehack.png'
 import './Dashboard.css';
 
