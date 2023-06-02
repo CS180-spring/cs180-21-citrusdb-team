@@ -1,6 +1,6 @@
 import request from 'request';
 
-request('http://0.0.0.0:8080', function (err, res) {
+request('http://18.118.28.109:80', function (err, res) {
     if (err) {
         console.log(err);
     } else {
