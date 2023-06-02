@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 var userGlobal = '';
 
 export function loginUser(account) {
+    // TODO: implement login functionality
     if (accounts.hasOwnProperty(account[0]) && accounts[account[0]] === account[1]) {
         return 'valid';
     }
@@ -20,6 +21,10 @@ export function getUser() {
         return userGlobal;
     }
     return '';
+}
+
+export function clearUser() {
+    userGlobal = '';
 }
 
 export default function Login({ setToken }) {
@@ -62,7 +67,7 @@ export default function Login({ setToken }) {
             <img src={UCRLOGO} alt="UCRLOGO.png"/>
             <form onSubmit={handleLogin}>
             <label>
-                    <p>Username/Email</p>
+                    <p>Username</p>
                     <input type="text" onChange={e => setUserName(e.target.value)} />
                 </label>
                 <label>

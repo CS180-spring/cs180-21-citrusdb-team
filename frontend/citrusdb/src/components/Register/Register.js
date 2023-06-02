@@ -6,6 +6,7 @@ import './Register.css';
 function Register() {
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
     const navigate = useNavigate();
 
@@ -29,8 +30,12 @@ function Register() {
                 <img src={UCRLOGO} alt="UCRLOGO.png"/>
                 <form onSubmit={handleRegister}>
                     <label>
-                        <p>Username/Email</p>
+                        <p>Username</p>
                         <input type="text" onChange={e => setUserName(e.target.value)} />
+                    </label>
+                    <label>
+                        <p>Email</p>
+                        <input type="text" onChange={e => setUserEmail(e.target.value)} />
                     </label>
                     <label>
                         <p>Password</p>
