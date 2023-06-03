@@ -5,6 +5,7 @@ import Login from './components/Login/Login.js';
 import Dashboard from './components/Dashboard/Dashboard.js';
 import Register from './components/Register/Register.js';
 import Forgot from './components/Forgot/Forgot.js';
+import Collection from './components/Collection/Collection.js';
 
 /*
   Credit 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard setToken={setToken}/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
+          <Route path="/collection" element={<Collection />} />
         </Routes>
     </div>
   );

@@ -5,22 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import UCRLOGO from '../../images/cutiehack.png'
 import './Dashboard.css';
 
-
 export default function Dashboard({ setToken }) {
   // Edit Profile states
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [editEmail , setEditEmail] = useState('');
-  const [editConfirmEmail , setEditConfirmEmail] = useState('');
   const [editPassword , setEditPassword] = useState('');
   const [editConfirmPassword , setEditConfirmPassword] = useState('');
 
   const handleEdit = (event) => {
     event.preventDefault();
-    if (editConfirmEmail !== editEmail) {
-      console.log("Got ", editEmail, " ", editConfirmEmail);
-      alert("Emails do not match!");
-    }
-    else if (editConfirmPassword !== editPassword) {
+    if (editConfirmPassword !== editPassword) {
       console.log("Got ", editPassword, " ", editConfirmPassword);
       alert("Passwords do not match!");
     }
@@ -30,8 +23,6 @@ export default function Dashboard({ setToken }) {
   }
 
   const handleCloseEditModal = () => {
-    setEditEmail('');
-    setEditConfirmEmail('');
     setEditPassword('');
     setEditConfirmPassword('');
     setIsEditOpen(false);
@@ -59,12 +50,12 @@ export default function Dashboard({ setToken }) {
 
   const handleCreateSubmit = (event) => {
     event.preventDefault();
-    // Access the values of the variables in the `variables` state
     console.log(variables);
   };
 
-  // Upload Event states
-  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  // Delete Collection states
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  // TODO: Implement delete collection
 
   // For moving between pages
   const navigate = useNavigate();
@@ -74,6 +65,12 @@ export default function Dashboard({ setToken }) {
     setToken(false);
     clearUser();
     navigate("/login");
+  }
+  
+  const handleGoCollection = (event) => {
+    event.preventDefault();
+    // TODO: Populate collection page
+    navigate("/collection");
   }
 
   const currUser = getUser();
@@ -95,14 +92,6 @@ export default function Dashboard({ setToken }) {
             <h3>Edit Profile</h3>
             <form>
               <label>
-                <p>Email</p>
-                <input type="text" onChange={(e) => setEditEmail(e.target.value)} />
-              </label>
-              <label>
-                <p>Confirm Email</p>
-                <input type="text" onChange={(e) => setEditConfirmEmail(e.target.value)} />
-              </label>
-              <label>
                 <p>Password</p>
                 <input type="password" onChange={(e) => setEditPassword(e.target.value)} />
               </label>
@@ -117,12 +106,13 @@ export default function Dashboard({ setToken }) {
         </ReactModal>
         <button className="logout" onClick={handleLogout}>Log out</button>
       </div>
-      <button id="filter">Filter</button>
       <div className="box" id="documents">
+        <p>Collections</p>
+        <button onClick={handleGoCollection}>TODO: Sample Collection</button>
       </div>
       <div className="crud-wrapper">
         <p>Actions</p>
-        <button id="create" onClick={() => setIsCreateOpen(true)}>Create</button>
+        <button id="create" onClick={() => setIsCreateOpen(true)}>Create Collection</button>
         <ReactModal
         isOpen={isCreateOpen}
         contentLabel="Create Modal"
@@ -130,7 +120,7 @@ export default function Dashboard({ setToken }) {
         >
         <form onSubmit={handleCreateSubmit}>
           <label>
-            <p>Document Name</p>
+            <p>Collection Name</p>
             <input type="text" />
           </label>
           {variables.map((variable, index) => (
@@ -163,30 +153,19 @@ export default function Dashboard({ setToken }) {
         </form>
         </ReactModal>
         <br /><br />
-        <button id="upload" onClick={() => setIsUploadOpen(true)}>Upload</button>
+        <button id="delete" onClick={() => setIsDeleteOpen(true)}>Delete</button>
         <ReactModal
-        isOpen={isUploadOpen}
-        contentLabel="Upload Modal"
-        onRequestClose={() => setIsUploadOpen(false)}
+        isOpen={isDeleteOpen}
+        contentLabel="Delete Modal"
+        onRequestClose={() => setIsDeleteOpen(false)}
         >
         <form>
           <label>
-            <p>Document Name</p>
+            <p>Collection Name</p>
             <input type="text" />
           </label>
-          <br /><br />
-          <label>
-            <input type="file" />
-          </label>
-          <br />
-          <br />
-          <button type="submit">Upload</button>
         </form>
         </ReactModal>
-        <br /><br />
-        <button id="modify">Modify</button>
-        <br /><br />
-        <button id="delete">Delete</button>
       </div>
     </div>
   );
