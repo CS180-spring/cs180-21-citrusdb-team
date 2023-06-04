@@ -24,8 +24,3 @@ void jsonStrings(const string& inputFile, vector<Entry<string>>& entries) {
             string strValue = value.dump();
             attributes.push_back({key, strValue});
         }
-
-        newEntry.attributes = attributes;
-        entries.push_back(newEntry);
-    }
-}

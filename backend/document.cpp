@@ -1,59 +1,125 @@
-#include <string>
 #include "document.hpp"
-using namespace std;
 
-Document::Document() {}
+Document::Document(std::string fileName): fileName(fileName) {}
 
-Document::Document(string filepath) {
-    this->filepath = filepath;
-    loadFile();
+Document::Document(std::string fileName, std::string filePath ,json content): fileName(fileName) {
+    std::string workingPath = filePath + "/" + fileName; //working path = ./database/[username]/[collectionName]/[filename]
+
+    std::ofstream fout(workingPath); 
+
+    fout << content; //store data without any additional formatting
 }
 
-void Document::createObject(string objectID, json object) {
-    content[objectID] = object;
-}
+int Document::renameDocument(std::string filepath, std::string newName){
+    std::string currentPath = filepath + "/" + this->getFileName(); //currentpath = ./database/[username]/[collectionName]/[filename]
+    std::string newPath = filepath + "/" + this->getFileName(); //newpath = ./database/[username]/[collectionName]/[newName]
 
-void Document::deleteObject(string objectID) {
-    content.erase(objectID);
-}
+    std::filesystem::rename(currentPath, newPath); //unable to check if operation was conducted, return type is void. Must check if operation is possible at collection level.
+    this->setFileName(newName);
 
-void Document::updateDocument() {
-    saveFile();
-}
+    //begin iterating through content of document to update "_originFile" variable.
+    json content = this->getContent(filepath);
 
-json Document::getObject(string objectID) {
-    if (content.contains(objectID)) {
-        return content[objectID];
+    for(json::iterator i = content.begin(); i != content.end(); i++){
+        i.value()["_originFile"] = newName;
     }
-    return json();
-}
 
-vector<string> Document::listObjectIDs() {
-    vector<string> objectIDs;
-    for (auto& [key, value] : content.items()) {
-        objectIDs.push_back(key);
+    //store content back into file
+    if(this->storeContent(filepath, content)){
+        return 1;
     }
-    return objectIDs;
-}
-
-json Document::getContent() {
-    return content;
-}
-
-void Document::loadFile() {
-    ifstream inFile(filepath);
-    if (inFile.good()) {
-        inFile >> content;
-        inFile.close();
+    else{
+        return -2;
     }
 }
 
-void Document::saveFile() {
-    ofstream outFile(filepath);
-    outFile << content.dump(4);
-    outFile.close();
+int Document::createObject(std::string filepath, json object){
+    std::string workingPath = filepath + "/" + this->getFileName(); //working path = ./database/[username]/[collectionName]/[filename]
+
+    //read in content of file into content variable
+    json content = this->getContent(filepath);
+
+    //store object into content of docuent
+    content[object["_objectID"]] = object;
+
+    //store content back into file
+    if(this->storeContent(filepath, content)){
+        return 1;
+    }
+    else{
+        return -2;
+    }
+}
+    
+int Document::deleteObject(std::string filepath, std::string objectID){
+    std::string workingPath = filepath + "/" + this->getFileName(); //working path = ./database/[username]/[collectionName]/[filename]
+
+    //read in file info
+    json content = this->getContent(filepath);
+
+    //check if object is actually in document
+    if(this->checkObject(filepath, objectID) == 1){
+        //deletion operation
+        content.erase(objectID);
+    }
+    else{
+        return -1;
+    }
+    //store content back into file
+    if(this->storeContent(filepath, content)){
+        return 1;
+    }
+    else{
+        return -2;
+    }
 }
 
-void Document::clearContent() {
-    content.clear();
+bool Document::checkObject(std::string filepath, std::string objectID){
+    std::string workingPath = filepath + "/" + this->getFileName();
+
+    json content = this->getContent(workingPath);
+
+    if(content.find(objectID) == content.end()){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
+json Document::getObject(std::string filepath, std::string objectID){
+    std::string workingPath = filepath + "/" + this->getFileName();
+
+    return this->getContent(workingPath)[objectID];
+}
+
+std::string Document::getFileName(){
+    return this->fileName;
+}
+
+void Document::setFileName(std::string newFileName){
+    this->fileName = newFileName;
+}
+
+json Document::getContent(std::string filepath){
+    std::string workingPath = filepath + "/" + this->getFileName();
+
+    std::ifstream fin(workingPath);
+
+    return json::parse(workingPath);
+}
+
+int Document::storeContent(std::string filepath, json content){
+    std::string workingPath = filepath + "/" + this->getFileName(); //working path = ./database/[username]/[collectionName]/[filename]
+
+    std::ofstream fout;
+    fout.open(workingPath, std::ofstream::trunc);
+
+    if(!fout){
+        return -1;
+    }
+
+    fout << content;
+
+    return 1;
 }

@@ -1,0 +1,12 @@
+{
+    "_meta.json":
+    {
+        "day": "day",
+        "month": "month",
+        "year": "year",
+        "time": "time"
+    },
+    "exampleFile1.json": "exampleFile1.json",
+    "example.json": "example.json",
+    "godhelpme.json": "godhelpme.json"
+}
