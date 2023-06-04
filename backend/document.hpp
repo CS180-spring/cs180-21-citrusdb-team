@@ -1,6 +1,5 @@
-#ifndef _DOCUMENT_HPP_
-#define _DOCUMENT_HPP_
-
+#ifndef DOCUMENT_HPP
+#define DOCUMENT_HPP
 #include <string>
 #include <fstream>
 #include <./nlohmann/json.hpp>
@@ -57,5 +56,4 @@ public:
     //stores json input back into document in filesystem
     int storeContent(std::string filepath, json content);
 };
-
 #endif

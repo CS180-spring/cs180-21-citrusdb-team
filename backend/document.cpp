@@ -108,18 +108,3 @@ json Document::getContent(std::string filepath){
 
     return json::parse(workingPath);
 }
-
-int Document::storeContent(std::string filepath, json content){
-    std::string workingPath = filepath + "/" + this->getFileName(); //working path = ./database/[username]/[collectionName]/[filename]
-
-    std::ofstream fout;
-    fout.open(workingPath, std::ofstream::trunc);
-
-    if(!fout){
-        return -1;
-    }
-
-    fout << content;
-
-    return 1;
-}
