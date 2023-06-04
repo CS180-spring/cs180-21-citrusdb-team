@@ -30,7 +30,8 @@ class UserDatabase{
         //delete a collection from a user database, should delete all documents from within the collection prior to deleting the collection
         int deleteCollection(std::string collectionName);
 
-        int checkCollection(std::string collectionName);
+        //return 1 if collection id in database, 0 if not
+        bool checkCollection(std::string collectionName);
 
         //return specific Collection opbject, helper function for transporting calls to a specific function
         Collection* getCollection(std::string collectionName);
@@ -55,7 +56,7 @@ class UserDatabase{
 
         int renameDocument(std::string collectionName, std::string oldDocumentName, std::string newDocumentName);
 
-        int createObject(std::string collectionName,std::string documentName, std::string objectID, json object);
+        int createObject(std::string collectionName,std::string documentName, json object);
 
         int deleteObject(std::string collectionName, std::string documentName, std::string objectID);
 };

@@ -8,6 +8,7 @@ using json = nlohmann::ordered_json;
 
 class Document{
 private:
+    //stored filename and extension - "[name].json"
     std::string fileName;
     
 public:
@@ -31,14 +32,14 @@ public:
         any other relevant values
     }
     */
-    int createObject(std::string filepath, std::string objectID, json object);
+    int createObject(std::string filepath, json object);
     
     //deletes an object with a given id from the document
     int deleteObject(std::string filepath, std::string objectID);
 
     //checks if an object exists within the json document with given objectID.
-    //returns -1 if object is not present, 1 if object is not present.
-    int checkObject(std::string filepath, std::string objectID);
+    //returns 0 if object is not present, 1 if object is present.
+    bool checkObject(std::string filepath, std::string objectID);
 
     //returns object with a given id.
     //if object exists, will return properly, otherwise will have unknown behavior.
@@ -52,6 +53,9 @@ public:
 
     //basic getter, returns full content of json document
     json getContent(std::string filepath);
+
+    //stores json input back into document in filesystem
+    int storeContent(std::string filepath, json content);
 };
 
 #endif
