@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(CitrusDB)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -16,6 +16,7 @@ add_executable(
   testHarness
   backend/jsonStrings.cpp
   backend/file.cpp
+  backend/databaseEngine.cpp
   test.cpp
 )
 

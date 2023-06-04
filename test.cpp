@@ -2,19 +2,11 @@
 #include <string>
 #include <variant>
 #include "backend/jsonStrings.hpp"
+#include "backend/document.hpp"
 #include "backend/file.hpp"
+#include "backend/databaseEngine.hpp"
 
 using namespace std;
-
-// TEST(BasicDatabaseOperations, SingleTypeEntryObject){
-//     vector<variant<int, double>> v = {2, 4, 6, 8, 0};
-//     string uniqueId = "13579";
-//     Entry nums = Entry(uniqueId, v);
-//     EXPECT_EQ(uniqueId, nums.getId());
-//     for (size_t i = 0; i < v.size(); i++){
-//         EXPECT_EQ(nums.getElement(i), v.at(i));
-//     }
-// }
 
 TEST(BasicOperations, ReadFile)
 {
@@ -130,6 +122,58 @@ TEST(BasicOperations, UploadFile){
     EXPECT_EQ(readFile("upload/people.json") ,readFile("database/people.json"));
 }
 
+
+TEST(DBEngine, Initilization){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.loginCheck("alice", "m"));
+    ASSERT_FALSE(dbe.loginCheck("nonexistent", "m"));
+}
+
+TEST(DBEngine, AddUsers){
+    DatabaseEngine dbe;
+    int passed = dbe.createUser("user1", "temp@example.com", "pwd123");
+    EXPECT_EQ(passed, 1);
+    int fail_existing_username = dbe.createUser("user1", "12345@example.edu", "qwerty");
+    EXPECT_EQ(fail_existing_username, 0);
+    int fail_existing_email = dbe.createUser("user2", "temp@example.com", "asdfjkl;");
+    EXPECT_EQ(fail_existing_email, -1);
+    ASSERT_FALSE(dbe.deleteUser("user2"));
+    int fail_bad_password = dbe.createUser("user3", "temporary@not-real.com", ".");
+    EXPECT_EQ(fail_bad_password, -2);
+}
+
+TEST(DBEngine, AddAndDeleteUsers){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.deleteUser("alice"));
+    ASSERT_FALSE(dbe.deleteUser("alice"));
+    int passed = dbe.createUser("user1", "temp@example.com", "pwd123");
+    EXPECT_EQ(passed, 1);
+    ASSERT_TRUE(dbe.deleteUser("user1"));
+    ASSERT_FALSE(dbe.deleteUser("user1"));
+    ASSERT_TRUE(dbe.deleteUser("bob"));
+    ASSERT_FALSE(dbe.deleteUser("bob"));
+}
+
+TEST(DBEngine, Logins){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.loginCheck("alice", "m"));
+    ASSERT_FALSE(dbe.loginCheck("alice", "wrong"));
+    ASSERT_FALSE(dbe.loginCheck("not_existent", "m"));
+
+}
+
+TEST(DBEngine, ChangePasswords){
+    DatabaseEngine dbe;
+    ASSERT_TRUE(dbe.resetPassword("alice", "alice@example.com"));
+    ASSERT_FALSE(dbe.resetPassword("not_exist", "alice@example.com"));
+    ASSERT_FALSE(dbe.resetPassword("alice", "not_existent@email.com"));
+    ASSERT_FALSE(dbe.updatePassword("not_existent", "123456789"));
+    ASSERT_FALSE(dbe.updatePassword("alice", "b"));
+    string pwd = "strong_password";
+    ASSERT_TRUE(dbe.updatePassword("alice", pwd));
+    EXPECT_EQ(pwd, dbe.getUser("alice").getPassword());
+}
+
 TEST(JsonStrings, BasicOperations)
 {
     // input file
@@ -174,3 +218,87 @@ TEST(JsonStrings, BasicOperations)
     }
 }
 
+TEST(DocumentTest, CreateAndGet) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}
+    };
+    doc.createObject(objectId, obj);
+    json getObj = doc.getObject(objectId);
+
+    EXPECT_EQ(obj, getObj);
+}
+
+TEST(DocumentTest, DeleteObject) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}
+    };
+    doc.createObject(objectId, obj);
+    doc.deleteObject(objectId);
+
+    json getObj = doc.getObject(objectId);
+    EXPECT_TRUE(getObj.empty());
+}
+
+TEST(DocumentTest, UpdateDocument) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}
+    };
+    doc.createObject(objectId, obj);
+    doc.updateDocument();
+
+    Document updatedDoc("test.json");
+
+    json getObj = updatedDoc.getObject(objectId);
+    EXPECT_EQ(getObj, obj);
+}
+
+TEST(DocumentTest, ListObjectIDs) {
+    Document doc("test.json");
+
+    string objectId1 = "Object_1";
+    json obj1 = {
+        {"name", "John"},
+        {"age", 30}       
+    };
+    doc.createObject(objectId1, obj1);
+
+    string objectId2 = "Object_2";
+    json obj2 = {
+        {"name", "Jeff"},
+        {"age", 28}
+    };
+    doc.createObject(objectId2, obj2);
+
+    vector<string> objectIDs = doc.listObjectIDs();
+
+    EXPECT_EQ(objectIDs.size(), 2);
+    EXPECT_EQ(objectIDs[0], objectId1);
+    EXPECT_EQ(objectIDs[1], objectId2);
+}
+
+TEST(DocumentTest, ClearContent) {
+    Document doc("test.json");
+
+    string objectId = "Object_1";
+    json obj = {
+        {"name", "John"},
+        {"age", 30}        
+    };
+    doc.createObject(objectId, obj);
+    doc.clearContent();
+
+    json getObj = doc.getObject(objectId);
+    EXPECT_TRUE(getObj.empty());
+}
