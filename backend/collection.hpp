@@ -34,6 +34,15 @@ public:
     
     //replaces content of a file, cannot replace with an empty document
     int replaceDocument(std::string filepath, std::string documentName, json content);
+
+    //gathers content of each document in the collection, returns as one object
+    json displayObjects(std::string filepath);
+
+    //gathers all content that matches the query
+    json filterDisplay(std::string filepath, json query);
+
+    //returns collection template as a json object
+    json getTemplate(std::string filepath);
     
     //returns 1 if document is present in the map, 0 if it is not
     bool checkDocument(std::string documentName);

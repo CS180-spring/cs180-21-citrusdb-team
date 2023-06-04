@@ -158,6 +158,43 @@ int Collection::replaceDocument(std::string filepath, std::string documentName, 
     }
 }
 
+json Collection::displayObjects(std::string filepath){
+    std::string workingPath = filepath + "/" + this->getCollectionName(); //workingPath = ./database/[username]/[collectionName]
+    json output;
+
+    //iterate through all documents, combining contents into one large json object
+    for(auto i: *this->getDocuments()){
+        output.merge_patch(i.second.getContent(workingPath));
+    }
+
+    return output;
+}
+
+json Collection::filterDisplay(std::string filepath, json query){
+    json output = this->displayObjects(filepath); //gather what would be displayed normally
+
+    //filter each object and include it if queried field matches query
+    for(json::iterator i = output.begin(); i != output.end(); i++){
+        if(i.value()[query["filter"]] == query["query"]){
+            output[i.key()] = i.value();
+        }
+    }
+
+    return output;
+}
+
+json Collection::getTemplate(std::string filepath){
+    std::string metaPath = filepath + "/" + this->getCollectionName() + "/_meta.json"; //metaPath = ./database/[username]/[collectionName]/_meta.json
+    std::ifstream fin(metaPath);
+
+    json content = json::parse(fin);
+
+    json output;
+    output["_meta.json"] = content["_meta.json"];
+
+    return output;
+}
+
 bool Collection::checkDocument(std::string documentName){
     if(this->getDocuments()->find(documentName) != this->getDocuments()->end()){
         return 1;

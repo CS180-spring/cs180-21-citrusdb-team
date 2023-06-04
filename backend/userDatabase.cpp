@@ -94,6 +94,30 @@ bool UserDatabase::checkCollection(std::string collectionName){
     }
 }
 
+json UserDatabase::displayCollection(){
+    json output;
+
+    //iterate through all collections and add them to json object
+    for(auto i: *this->getCollections()){
+        output[i.first] = i.first;
+    }
+
+    return output;
+}
+
+json UserDatabase::filterDisplay(std::string query){
+    json output;
+
+    //iterate through all collections and output all collections containing requested substring
+    for(auto i: *this->getCollections()){
+        if(i.first.find(query) != std::string::npos){
+            output[i.first] = i.first;
+        }
+    }
+
+    return output;
+}
+
 Collection* UserDatabase::getCollection(std::string collectionName){
     return &this->collections[collectionName];
 }
@@ -102,7 +126,7 @@ std::string UserDatabase::getDatabaseName(){
     return this->databaseName;
 }
 
-std::map<std::string, Collection>* UserDatabase::getCollections(){
+std::unordered_map<std::string, Collection>* UserDatabase::getCollections(){
     return &this->collections;
 }
 
@@ -174,6 +198,36 @@ int UserDatabase::replaceDocument(std::string collectionName, std::string docume
     if(this->checkCollection(collectionName)){
         std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
         return (*this->getCollections())[collectionName].replaceDocument(workingPath, documentName, content);
+    }
+    else{
+        return -1;
+    }
+}
+
+json UserDatabase::displayObjects(std::string collectionName){
+    if(this->checkCollection(collectionName)){
+        std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
+        return (*this->getCollections())[collectionName].displayObjects(workingPath);
+    }
+    else{
+        return -1;
+    }
+}
+        
+json UserDatabase::filterDisplay(std::string collectionName, json query){
+    if(this->checkCollection(collectionName)){
+        std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
+        return (*this->getCollections())[collectionName].filterDisplay(workingPath, query);
+    }
+    else{
+        return -1;
+    }
+}
+        
+json UserDatabase::getTemplate(std::string collectionName){
+    if(this->checkCollection(collectionName)){
+        std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
+        return (*this->getCollections())[collectionName].getTemplate(workingPath);
     }
     else{
         return -1;

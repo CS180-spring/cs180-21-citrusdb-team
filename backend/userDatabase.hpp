@@ -1,3 +1,6 @@
+#ifndef _USERDATABASE_HPP_
+#define _USERDATABASE_HPP_
+
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -18,7 +21,7 @@ class UserDatabase{
         std::string databaseName;
 
         //tracks names of collections within the userDatabase
-        std::map<std::string, Collection> collections;
+        std::unordered_map<std::string, Collection> collections;
 
     public:
         //only takes databaseName in as input, all ofther information gathered from metadata file within the userDatabase
@@ -33,6 +36,12 @@ class UserDatabase{
         //return 1 if collection id in database, 0 if not
         bool checkCollection(std::string collectionName);
 
+        //return json object containing names for all collections within userDatabase
+        json displayCollection();
+
+        //return json object containing names for all collection containing requested substrings in the name
+        json filterDisplay(std::string query);
+
         //return specific Collection opbject, helper function for transporting calls to a specific function
         Collection* getCollection(std::string collectionName);
 
@@ -40,7 +49,7 @@ class UserDatabase{
         std::string getDatabaseName();
 
         //basic getter
-        std::map<std::string, Collection>* getCollections();
+        std::unordered_map<std::string, Collection>* getCollections();
 
 
         //start functions that are passthroughs to Collection
@@ -52,6 +61,12 @@ class UserDatabase{
 
         int replaceDocument(std::string collectionName, std::string documentName, json content);
 
+        json displayObjects(std::string collectionName);
+        
+        json filterDisplay(std::string collectionName, json query);
+        
+        json getTemplate(std::string collectionName);
+
         //start functions that are passthroughs to Document
 
         int renameDocument(std::string collectionName, std::string oldDocumentName, std::string newDocumentName);
@@ -60,3 +75,5 @@ class UserDatabase{
 
         int deleteObject(std::string collectionName, std::string documentName, std::string objectID);
 };
+
+#endif
