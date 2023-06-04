@@ -78,6 +78,7 @@ export default function Collection() {
                     <select>
                         <option value="document">Document</option>
                         <option value="value">Value</option>
+                        <option value="ID">ID</option>
                     </select>
                 </label>
                 <br />
@@ -89,11 +90,13 @@ export default function Collection() {
                 <button type="submit">Filter</button>
             </form>
             </ReactModal>
-        <div className="box" id="documents">
+        <div className="box" id="objects">
+            <p>Objects</p>
+            <button type="submit">Sample Object</button>
         </div>
         <div className="crud-wrapper">
             <p>Actions</p>
-            <button id="create" onClick={() => setIsCreateOpen(true)}>Create Document</button>
+            <button id="create" onClick={() => setIsCreateOpen(true)}>Create Object</button>
             <ReactModal
             isOpen={isCreateOpen}
             contentLabel="Create Modal"
@@ -101,13 +104,13 @@ export default function Collection() {
             >
             <form onSubmit={handleCreateSubmit}>
             <label>
-                <p>Document Name</p>
+                <p>Origin File</p>
                 <input type="text" />
             </label>
             {variables.map((variable, index) => (
                 <div key={index}>
                 <label>
-                    <p>Variable</p>
+                    <p>TODO: Populate variables based on Collection Template</p>
                     <input
                     type="text"
                     name="variable"
@@ -115,20 +118,8 @@ export default function Collection() {
                     onChange={(event) => handleVariableChange(index, event)}
                     />
                 </label>
-
-                <label>
-                    <p>Variable Type</p>
-                    <input
-                    type="text"
-                    name="type"
-                    value={variable.type}
-                    onChange={(event) => handleVariableChange(index, event)}
-                    />
-                </label>
                 </div>
             ))}
-            <br />
-            <button type="submit" onClick={handleAddVariable}>Add more variables</button>
             <br />
             <button type="submit">Create</button>
             </form>
@@ -163,15 +154,11 @@ export default function Collection() {
             >
             <form>
                 <label>
-                    <p>Document Name</p>
+                    <p>Object ID</p>
                     <input type="text" />
                 </label>
                 <label>
-                    <p>Variable</p>
-                    <input type="text" />
-                </label>
-                <label>
-                    <p>Value</p>
+                    <p>TODO: Populate based on template of Collection</p>
                     <input type="text" />
                 </label>
                 <br /><br />
