@@ -23,4 +23,7 @@ void jsonStrings(const string& inputFile, vector<Entry<string>>& entries) {
         for (auto& [key, value] : person.items()) {
             string strValue = value.dump();
             attributes.push_back({key, strValue});
+        for (auto& [key, value] : person.items()) {
+            string strValue = value.dump();
+            attributes.push_back({key, strValue});
         }
