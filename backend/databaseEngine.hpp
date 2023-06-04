@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <map>
 #include <string>
+#include <filesystem>
 #include "../nlohmann/json.hpp"
 #include "file.hpp"
 #include "userDatabase.hpp"
@@ -27,7 +28,7 @@ class DatabaseEngine{
 
     // Access underlying data beneath UserDatabase
     // Collections
-    int createCollection(const std::string& username, const std::string& collection, const std::vector<std::string>& labels);
+    int createCollection(const std::string& username, const std::string& collection, const std::string& labels);
     int deleteCollection(const std::string& username, const std::string& collection);
     int renameCollection(const std::string& username, const std::string& oldName, const std::string& newName);
     Collection* getCollection(const std::string& username, const std::string& collection);
@@ -38,16 +39,16 @@ class DatabaseEngine{
     int deleteDocument(const std::string& username, const std::string& collection, const std::string& document);
     int renameDocument(const std::string& username, const std::string& collection, const std::string& oldDoc, const std::string& newDoc);
     int replaceDocument(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
-    Document* getDocument(const std::string& username, const std::string& collection, const std::string& document);
-    std::map<std::string, Document>* getDocuments(const std::string& username, const std::string& collection);
+    // Document* getDocument(const std::string& username, const std::string& collection, const std::string& document);
+    // std::map<std::string, Document>* getDocuments(const std::string& username, const std::string& collection);
     
     // Objects 
     nlohmann::json getContent(const std::string& username, const std::string& collection, const std::string& document);
     int createObject(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
     int deleteObject(const std::string& username, const std::string& collection, const std::string& document, const std::string& objectID);
     int updateDocument(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
-    nlohmann::json getObject(const std::string& username, const std::string& collection, const std::string& document, const std::string& objectID);
-    std::vector<std::string> listObjectIDs(const std::string& username, const std::string& collection, const std::string& document);
+    // nlohmann::json getObject(const std::string& username, const std::string& collection, const std::string& document, const std::string& objectID);
+    // std::vector<std::string> listObjectIDs(const std::string& username, const std::string& collection, const std::string& document);
 
 };
 

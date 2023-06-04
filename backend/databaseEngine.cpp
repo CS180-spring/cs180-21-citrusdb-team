@@ -33,6 +33,7 @@ DatabaseEngine::DatabaseEngine()
 /// @return
 int DatabaseEngine::createUser(const std::string &username, const std::string &email, const std::string &password)
 {
+    namespace fs = std::filesystem;
     if (users.contains(username))
         return -3;
     json j_file = json::parse(readFile("database/_metaDB.json"));
@@ -49,8 +50,14 @@ int DatabaseEngine::createUser(const std::string &username, const std::string &e
     if (password.size() < 3)
         return -2;
     // all "checks" are complete; good to create user
+    // fs::current_path(fs::temp_directory_path());
+    // if (!fs::create_directory("database/" + username)){
+    //     // failed to create a directory
+    //     return -1;
+    // }
     users[username] = UserDatabase(username);
     writeToFile(j_file);
+    
     return 1;
 }
 
@@ -179,7 +186,12 @@ bool DatabaseEngine::deleteUser(const std::string &username)
             {
                 j_file["users"].erase(j_user);
                 users.erase(username);
+                if (!std::filesystem::remove_all("database/"+username)){
+                    // could not delete the folder or the folder does not exist
+                    return false;
+                }
                 writeToFile(j_file);
+                return true;
             }
         }
         return false;
@@ -190,7 +202,7 @@ bool DatabaseEngine::deleteUser(const std::string &username)
     }
 }
 
-int DatabaseEngine::createCollection(const std::string &username, const std::string &collection, const std::vector<std::string>& labels)
+int DatabaseEngine::createCollection(const std::string &username, const std::string &collection, const std::string& labels)
 {
     return users[username].createCollection(collection, labels);
 }
@@ -235,16 +247,7 @@ int DatabaseEngine::replaceDocument(const std::string &username, const std::stri
     return users[username].replaceDocument(collection, document, object);
 }
 
-Document *DatabaseEngine::getDocument(const std::string &username, const std::string &collection, const std::string &document)
-{
-    return users[username].getDocument(collection, document);
-}
-
-std::map<std::string, Document> *DatabaseEngine::getDocuments(const std::string &username, const std::string &collection)
-{
-    return users[username].getDocuments(collection);
-}
-
+// should be fixed
 nlohmann::json DatabaseEngine::getContent(const std::string &username, const std::string &collection, const std::string &document)
 {
     return users[username].getContent(collection, document);
@@ -257,20 +260,10 @@ int DatabaseEngine::createObject(const std::string &username, const std::string 
 
 int DatabaseEngine::deleteObject(const std::string &username, const std::string &collection, const std::string &document, const std::string &objectID)
 {
-    return users[username].createObject(collection, document, objectID);
+    return users[username].deleteObject(collection, document, objectID);
 }
 
 int DatabaseEngine::updateDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
 {
     return users[username].updateDocument(collection, document, object);
-}
-
-nlohmann::json DatabaseEngine::getObject(const std::string &username, const std::string &collection, const std::string &document, const std::string &objectID)
-{
-    return users[username].getObject(collection, document, objectID);
-}
-
-std::vector<std::string> DatabaseEngine::listObjectIDs(const std::string &username, const std::string &collection, const std::string &document)
-{
-    return users[username].listObjectIDs(collection, document);
 }
