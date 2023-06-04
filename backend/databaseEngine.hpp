@@ -35,7 +35,7 @@ class DatabaseEngine{
     std::unordered_map<std::string, Collection>* getCollections(const std::string& username);
 
     // Documents
-    int createDocument(const std::string& username, const std::string& collection, const std::string& document);
+    int createDocument(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
     int deleteDocument(const std::string& username, const std::string& collection, const std::string& document);
     int renameDocument(const std::string& username, const std::string& collection, const std::string& oldDoc, const std::string& newDoc);
     int replaceDocument(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
@@ -43,7 +43,7 @@ class DatabaseEngine{
     // std::map<std::string, Document>* getDocuments(const std::string& username, const std::string& collection);
     
     // Objects 
-    nlohmann::json getContent(const std::string& username, const std::string& collection, const std::string& document);
+    // nlohmann::json getContent(const std::string& username, const std::string& collection, const std::string& document);
     int createObject(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);
     int deleteObject(const std::string& username, const std::string& collection, const std::string& document, const std::string& objectID);
     int updateDocument(const std::string& username, const std::string& collection, const std::string& document, nlohmann::json object);

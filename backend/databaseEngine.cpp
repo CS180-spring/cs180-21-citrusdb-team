@@ -227,9 +227,9 @@ std::unordered_map<std::string, Collection> *DatabaseEngine::getCollections(cons
     return users[username].getCollections();
 }
 
-int DatabaseEngine::createDocument(const std::string &username, const std::string &collection, const std::string &document)
+int DatabaseEngine::createDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
 {
-    return users[username].createDocument(collection, document);
+    return users[username].createDocument(collection, document, object);
 }
 
 int DatabaseEngine::deleteDocument(const std::string &username, const std::string &collection, const std::string &document)
@@ -248,10 +248,10 @@ int DatabaseEngine::replaceDocument(const std::string &username, const std::stri
 }
 
 // should be fixed
-nlohmann::json DatabaseEngine::getContent(const std::string &username, const std::string &collection, const std::string &document)
-{
-    return users[username].getContent(collection, document);
-}
+// nlohmann::json DatabaseEngine::getContent(const std::string &username, const std::string &collection, const std::string &document)
+// {
+//     return users[username].getContent(collection, document);
+// }
 
 int DatabaseEngine::createObject(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
 {
