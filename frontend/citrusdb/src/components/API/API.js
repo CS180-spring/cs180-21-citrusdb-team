@@ -1,11 +1,33 @@
 export async function registerUser(username, password, email) {
-    // Change this to match the server's IP address and endpoint
-    let response = await fetch("http://18.118.28.109:80");
-    console.log(response.status);
-    if (response.status === 200) {
-        let data = await response.text();
-        console.log(data);
-    }
+    const url = "http://18.118.196.59:80/create";
 
-    // Have this return a 200 if the user was successfully registered
+    const userBody = {
+        username: username,
+        password: password,
+        email: email
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userBody)
+        });
+        
+        console.log(response.status);
+        
+        if (response.status === 200) {
+            const data = await response.text();
+            console.log(data);
+            return 200;
+        } 
+    }
+    catch (error) {
+        console.log(error);
+        return 400;
+    }
 }
+
+registerUser("testuser", "testpass", "testemail");

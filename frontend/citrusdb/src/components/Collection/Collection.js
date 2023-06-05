@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import UCRLOGO from '../../images/cutiehack.png'
 import './Collection.css';
 
+import people from '../../database/people.json';
+
+// Should display objects
+// on collection page
+// Display template variables as COLUMNS
 
 export default function Collection() {
     // Create Event states

@@ -30,8 +30,9 @@ export default function Dashboard({ setToken }) {
 
   // Create Event states
   const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const initialVariableState = { variable: '', type: '' };
-  const [variables, setVariables] = useState([{ variable: '', type: '' }]);
+  const [collectionName, setCollectionName] = useState('');
+  const initialVariableState = { variable: '' };
+  const [variables, setVariables] = useState([{ variable: '' }]);
 
   const handleCloseCreateModal = () => {
     setVariables([initialVariableState]);
@@ -44,14 +45,22 @@ export default function Dashboard({ setToken }) {
     setVariables(updatedVariables);
   };
 
-  const handleAddVariable = () => {
-    setVariables([...variables, { variable: '', type: '' }]);
+  const handleAddVariable = (event) => {
+    event.preventDefault();
+    setVariables([...variables, { variable: ''}]);
   };
 
   const handleCreateSubmit = (event) => {
     event.preventDefault();
-    console.log(variables);
+    console.log("collectionName: ", collectionName);
+    console.log("variables: ", variables);
+    const newTemplate = `_id\n_originFile\n${variables.map((variable) => variable.variable).join('\n')}`;
+    console.log("newTemplate: ", newTemplate);
   };
+
+  // Modify Collection states
+  const [isModifyOpen, setIsModifyOpen] = useState(false);
+  // TODO: Implement modify collection
 
   // Delete Collection states
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -118,10 +127,10 @@ export default function Dashboard({ setToken }) {
         contentLabel="Create Modal"
         onRequestClose={handleCloseCreateModal}
         >
-        <form onSubmit={handleCreateSubmit}>
+        <form>
           <label>
             <p>Collection Name</p>
-            <input type="text" />
+            <input type="text" onChange={(e) => setCollectionName(e.target.value)}/>
           </label>
           {variables.map((variable, index) => (
             <div key={index}>
@@ -134,22 +143,28 @@ export default function Dashboard({ setToken }) {
                   onChange={(event) => handleVariableChange(index, event)}
                 />
               </label>
-
-              <label>
-                <p>Variable Type</p>
-                <input
-                  type="text"
-                  name="type"
-                  value={variable.type}
-                  onChange={(event) => handleVariableChange(index, event)}
-                />
-              </label>
             </div>
           ))}
           <br />
           <button type="submit" onClick={handleAddVariable}>Add more variables</button>
           <br />
-          <button type="submit">Create</button>
+          <button type="submit" onClick={handleCreateSubmit}>Create</button>
+        </form>
+        </ReactModal>
+        <br /><br />
+        <button type="submit" onClick={() => setIsModifyOpen(true)}>Modify Collection</button>
+        <ReactModal
+        isOpen={isModifyOpen}
+        contentLabel="Modify Modal"
+        onRequestClose={() => setIsModifyOpen(false)}
+        >
+        <form>
+          <label>
+            <p>Collection Name</p>
+            <input type="text" />
+          </label>
+          <br /><br />
+          <button type="submit">Modify</button>
         </form>
         </ReactModal>
         <br /><br />
