@@ -51,6 +51,12 @@ class DatabaseEngine{
     // nlohmann::json getObject(const std::string& username, const std::string& collection, const std::string& document, const std::string& objectID);
     // std::vector<std::string> listObjectIDs(const std::string& username, const std::string& collection, const std::string& document);
 
+    // Display Functions 
+    json displayCollection(const std::string& username);
+    json filterDisplay(const std::string& username, const std::string query);
+    json displayObjects(const std::string& username, std::string collectionName);    
+    json filterDisplay(const std::string& username, std::string collectionName, json query);    
+    json getTemplate(const std::string& username, std::string collectionName);
 };
 
 #endif

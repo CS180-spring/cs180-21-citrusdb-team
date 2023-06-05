@@ -263,6 +263,31 @@ int DatabaseEngine::deleteObject(const std::string &username, const std::string 
     return users[username].deleteObject(collection, document, objectID);
 }
 
+json DatabaseEngine::displayCollection(const std::string &username)
+{
+    return users[username].displayCollection();
+}
+
+json DatabaseEngine::filterDisplay(const std::string &username, const std::string query)
+{
+    return users[username].filterDisplay(query);
+}
+
+json DatabaseEngine::displayObjects(const std::string &username, std::string collectionName)
+{
+    return users[username].displayObjects(collectionName);
+}
+
+json DatabaseEngine::filterDisplay(const std::string &username, std::string collectionName, json query)
+{
+    return users[username].filterDisplay(collectionName, query);
+}
+
+json DatabaseEngine::getTemplate(const std::string &username, std::string collectionName)
+{
+    return users[username].getTemplate(collectionName);
+}
+
 /*
 int DatabaseEngine::updateDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
 {
