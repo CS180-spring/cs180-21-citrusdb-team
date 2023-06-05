@@ -34,6 +34,8 @@ public:
     
     map<string, Document> getMap();
     
+    string getFilePath();
+    
     int createObject();
 
     int deleteObject();

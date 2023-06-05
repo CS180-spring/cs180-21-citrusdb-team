@@ -18,7 +18,9 @@ int Collection::createDocument(string documentName, json jsonTemplate) {
     //./Database/UserName/collectionName/documentName
     //this->filePath + "/documentName"
     fstream file;
-    file.open(documentName, ios::out);
+    string theFilePath = getFilePath();
+    file.open(theFilePath + "//" + documentName, ios::out);
+    file << jsonTemplate;
     file.close();
 }
 
@@ -87,6 +89,10 @@ map<string, Document> Collection::getMap() {
     return documents;
 }
 
+string getFilePath() {
+    return filePath;
+}
+
 void Collection::createObject(string objectID, json object, string documentName) {
     map<string, Document> documents = getMap();
     documents[documentName].createObject(objectID, object);
@@ -95,7 +101,6 @@ void Collection::createObject(string objectID, json object, string documentName)
 void Collection::deleteObject(string objectID, string documentName) {
     map<string, Document> documents = getMap();
     documents[documentName].deleteObject(objectID);
-    //this->getMap()[documentName].deleteObject(objectID);
 }
 
 void Collection::updateDocument(string documentName) {
