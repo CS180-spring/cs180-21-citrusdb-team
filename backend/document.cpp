@@ -40,7 +40,7 @@ int Document::createObject(std::string filepath, json object){
     json content = this->getContent(filepath);
 
     //store object into content of docuent
-    content[object["_objectID"]] = object;
+    content[object["_id"]] = object;
 
     //store content back into file
     if(this->storeContent(filepath, content)){
@@ -75,9 +75,8 @@ int Document::deleteObject(std::string filepath, std::string objectID){
 }
 
 bool Document::checkObject(std::string filepath, std::string objectID){
-    std::string workingPath = filepath + "/" + this->getFileName();
-
-    json content = this->getContent(workingPath);
+    
+    json content = this->getContent(filepath);
 
     if(content.find(objectID) == content.end()){
         return 0;
@@ -106,7 +105,7 @@ json Document::getContent(std::string filepath){
 
     std::ifstream fin(workingPath);
 
-    return json::parse(workingPath);
+    return json::parse(fin);
 }
 
 int Document::storeContent(std::string filepath, json content){

@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(frontend/citrusdb/src/components/API)
 
+add_compile_options(-Wall -Wextra -Wpedantic -O0 -g)
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -16,14 +18,15 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 
 enable_testing()
-# add_executable(
-#   testHarness
-#   backend/document.cpp
-#   backend/collection.cpp
-#   backend/userDatabase.cpp
-#   backend/file.cpp
-#   backend/databaseEngine.cpp
-# )
+add_executable(
+  a.out
+  backend/document.cpp
+  backend/collection.cpp
+  backend/userDatabase.cpp
+  backend/file.cpp
+  backend/databaseEngine.cpp
+  main.cpp
+)
 
 add_test(
   NAME testHarness

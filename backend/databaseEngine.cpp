@@ -185,7 +185,8 @@ bool DatabaseEngine::deleteUser(const std::string &username)
             {
                 j_file["users"].erase(j_user);
                 users.erase(username);
-                if (!std::filesystem::remove_all("database/"+username)){
+                std::filesystem::path path = "database/" + username;
+                if (std::filesystem::remove_all(path) == 0){
                     // could not delete the folder or the folder does not exist
                     return false;
                 }

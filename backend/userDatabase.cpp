@@ -11,7 +11,7 @@ UserDatabase::UserDatabase(std::string databaseName) : databaseName(databaseName
         std::ifstream fin(metaPath);
         content = json::parse(fin);
 
-        for(json::iterator i = content.begin() + 1; i != content.end(); i++){
+        for(json::iterator i = content.begin(); i != content.end(); i++){
             (*this->getCollections()).emplace(i.value(), Collection(workingPath, i.value()));
         }
     }
@@ -19,7 +19,6 @@ UserDatabase::UserDatabase(std::string databaseName) : databaseName(databaseName
         //start actual new user branch
         std::filesystem::create_directory(workingPath);
 
-        content["_meta.json"] = "_meta.json";
 
         std::ofstream fout(metaPath);
 
