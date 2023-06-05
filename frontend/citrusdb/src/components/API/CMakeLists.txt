@@ -1,6 +1,12 @@
 # Set the minimum required CMake version
 cmake_minimum_required(VERSION 3.14)
 
+# set version of c++
+set(CMAKE_CXX_STANDARD 20)
+
+# catch errors
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 # Set the project name
 project(API)
 

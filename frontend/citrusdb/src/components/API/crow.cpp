@@ -35,22 +35,23 @@ int main()
         return response;
     });
 
-    // // Route for checking login credentials
-    // CROW_ROUTE(app, "/login")
-    //     .methods("POST"_method)
-    //     ([&dbEngine](const crow::request& req) {
-    //         // Extract data from the request body
-    //         std::string username = req.body["username"].s();
-    //         std::string password = req.body["password"].s();
+    // Route for checking login credentials
+    CROW_ROUTE(app, "/login")
+        .methods("POST"_method)
+        ([&dbEngine](const crow::request& req) {
+            // Extract data from the request body
+            std::string username = req.body["username"].s();
+            std::string password = req.body["password"].s();
 
-    //         // Call the loginCheck function of DatabaseEngine
-    //         bool isValid = dbEngine.loginCheck(username, password);
+            // Call the loginCheck function of DatabaseEngine
+            bool isValid = dbEngine.loginCheck(username, password);
 
-    //         // Return the result as a response
-    //         crow::json::wvalue response;
-    //         response["isValid"] = isValid;
-    //         return response;
-    //     });
+            // Return the result as a response
+            crow::json::wvalue response;
+            response["isValid"] = isValid;
+            return crow::response(crow::json::dump(response));
+        });
+
 
     // Start the server
     app.port(80).multithreaded().run();

@@ -7,7 +7,7 @@
 #include <filesystem>
 #include "./nlohmann/json.hpp"
 #include "document.hpp"
-using json = nlohmann::ordered_json;
+using json = nlohmann::json;
 
 
 class Collection {
@@ -16,6 +16,9 @@ private:
     std::unordered_map<std::string, Document> documents;
 
 public:
+
+    Collection() {}
+    
     //basic constructor to recreate collection if server goes down
     Collection(std::string filepath, std::string collectionName);
     

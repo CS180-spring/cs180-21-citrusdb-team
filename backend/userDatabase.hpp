@@ -12,7 +12,7 @@
 #include "collection.hpp"
 #include "document.hpp"
 
-using json = nlohmann::ordered_json;
+using json = nlohmann::json;
 
 class UserDatabase{
     private:
@@ -24,6 +24,9 @@ class UserDatabase{
         std::unordered_map<std::string, Collection> collections;
 
     public:
+
+        UserDatabase() {}
+        
         //only takes databaseName in as input, all ofther information gathered from metadata file within the userDatabase
         UserDatabase(std::string databaseName);
 
