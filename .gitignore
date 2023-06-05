@@ -11,6 +11,8 @@ testHarness
 *.out
 
 backend/userDatabase.hpp
+
+frontend/citrusdb/src/components/API/Crow
 frontend/citrusdb/node_modules/
 frontend/citrusdb/src/components/API/main
 frontend/citrusdb/src/components/API/CMakeFiles/
