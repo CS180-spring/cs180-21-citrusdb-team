@@ -6,10 +6,21 @@ using namespace std;
 Collection::Collection() {}
 
 Collection::Collection(string filepath) {
-    this->filePath = filePath;
     //create metadata file; one metadata file for each collection; ensure user doc doesn't match meta data file name
     //metadata file stores name of json doc and what columns are being displayed on frontend in respective collection
     //standard stream
+    this->filePath = filePath;
+    fstream file;
+    file.open(filePath + "//_metadataCollection");
+    if(file) {
+        cout << "Metadata file exists." << endl;
+    }
+    else {
+        cout << "Metadata file doesn't exist." << endl;
+        ofstream newFile(filePath + "//_metadataCollection");
+        newFile.close();
+    }
+    file.close();
 }
 
 int Collection::createDocument(string documentName, json jsonTemplate) {
@@ -17,9 +28,8 @@ int Collection::createDocument(string documentName, json jsonTemplate) {
     //standard stream
     //./Database/UserName/collectionName/documentName
     //this->filePath + "/documentName"
-    fstream file;
     string theFilePath = getFilePath();
-    file.open(theFilePath + "//" + documentName, ios::out);
+    ofstream file(theFilePath + "//" + documentName);
     file << jsonTemplate;
     file.close();
 }
