@@ -172,10 +172,10 @@ int UserDatabase::renameCollection(std::string oldCollectionName, std::string ne
     }
 }
 
-int UserDatabase::createDocument(std::string collectionName, std::string documentName, json content){
+int UserDatabase::createDocument(std::string collectionName, std::string documentName, std::string content){
     if(this->checkCollection(collectionName)){
         std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
-        return (*this->getCollections())[collectionName].createDocument(workingPath, documentName, content);
+        return (*this->getCollections())[collectionName].createDocument(workingPath, documentName, json::parse(content));
     }
     else{
         return -1;
@@ -194,10 +194,10 @@ int UserDatabase::deleteDocument(std::string collectionName, std::string documen
 
 }
 
-int UserDatabase::replaceDocument(std::string collectionName, std::string documentName, json content){
+int UserDatabase::replaceDocument(std::string collectionName, std::string documentName, std::string content){
     if(this->checkCollection(collectionName)){
         std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
-        return (*this->getCollections())[collectionName].replaceDocument(workingPath, documentName, content);
+        return (*this->getCollections())[collectionName].replaceDocument(workingPath, documentName, json::parse(content));
     }
     else{
         return -1;
@@ -244,10 +244,10 @@ int UserDatabase::renameDocument(std::string collectionName, std::string oldDocu
     }
 }
 
-int UserDatabase::createObject(std::string collectionName,std::string documentName, json object){
+int UserDatabase::createObject(std::string collectionName,std::string documentName, std::string object){
     if(this->checkCollection(collectionName)){
         std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
-        return (*this->getCollections())[collectionName].createObject(workingPath, documentName, object);
+        return (*this->getCollections())[collectionName].createObject(workingPath, documentName, json::parse(object));
     }
     else{
         return -1;

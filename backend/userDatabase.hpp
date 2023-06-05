@@ -58,11 +58,11 @@ class UserDatabase{
         //start functions that are passthroughs to Collection
         int renameCollection(std::string oldCollectionName, std::string newCollectionName);
 
-        int createDocument(std::string collectionName, std::string documentName, json content);
+        int createDocument(std::string collectionName, std::string documentName, std::string content);
 
         int deleteDocument(std::string collectionName, std::string documentName);
 
-        int replaceDocument(std::string collectionName, std::string documentName, json content);
+        int replaceDocument(std::string collectionName, std::string documentName, std::string content);
 
         json displayObjects(std::string collectionName);
         
@@ -74,7 +74,7 @@ class UserDatabase{
 
         int renameDocument(std::string collectionName, std::string oldDocumentName, std::string newDocumentName);
 
-        int createObject(std::string collectionName,std::string documentName, json object);
+        int createObject(std::string collectionName,std::string documentName, std::string object);
 
         int deleteObject(std::string collectionName, std::string documentName, std::string objectID);
 };
