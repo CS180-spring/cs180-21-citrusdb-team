@@ -280,7 +280,7 @@ json DatabaseEngine::displayObjects(const std::string &username, std::string col
 
 json DatabaseEngine::filterDisplay(const std::string &username, std::string collectionName, json query)
 {
-    return users[username].filterDisplay(collectionName, query);
+    return users[username].filterDisplay(collectionName, query.dump());
 }
 
 json DatabaseEngine::getTemplate(const std::string &username, std::string collectionName)

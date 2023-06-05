@@ -66,7 +66,7 @@ class UserDatabase{
 
         json displayObjects(std::string collectionName);
         
-        json filterDisplay(std::string collectionName, json query);
+        json filterDisplay(std::string collectionName, std::string query);
         
         json getTemplate(std::string collectionName);
 

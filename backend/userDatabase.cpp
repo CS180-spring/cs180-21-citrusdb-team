@@ -214,10 +214,10 @@ json UserDatabase::displayObjects(std::string collectionName){
     }
 }
         
-json UserDatabase::filterDisplay(std::string collectionName, json query){
+json UserDatabase::filterDisplay(std::string collectionName, std::string query){
     if(this->checkCollection(collectionName)){
         std::string workingPath = "./database/" + this->getDatabaseName(); //workingPath = ./database/[username]
-        return (*this->getCollections())[collectionName].filterDisplay(workingPath, query);
+        return (*this->getCollections())[collectionName].filterDisplay(workingPath, json::parse(query));
     }
     else{
         return -1;
