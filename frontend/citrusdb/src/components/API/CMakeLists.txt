@@ -1,14 +1,11 @@
-# Set the minimum required CMake version
 cmake_minimum_required(VERSION 3.14)
+project(API)
 
-# set version of c++
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
-# catch errors
+# Catch errors
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-# Set the project name
-project(API)
 
 # Include the Crow library
 set(ASIO_INCLUDE_DIR "/home/ec2-user/asio-1.28.0/include")
