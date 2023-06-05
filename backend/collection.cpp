@@ -367,7 +367,7 @@ int Collection::deleteObject(std::string filepath, std::string documentName, std
         std::string workingPath = filepath + "/" + this->getCollectionName(); // working path = ./database/[username]/[collectionName]
 
         // make sure object exists in the document, else return an error code.
-        if (!this->getDocument(documentName)->checkObject(workingPath, objectID))
+        if (this->getDocument(documentName)->checkObject(workingPath, objectID))
         {
             return this->getDocument(documentName)->deleteObject(workingPath, objectID);
         }

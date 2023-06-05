@@ -19,6 +19,7 @@ int main(){
     date2["_id"] = "unique";
     date2["_originFile"] = "visits";
     dbe.createObject("eve123", "myCollection", "visits", date2);
+    dbe.deleteObject("eve123", "myCollection", "visits", "id");
     
     return 0;
 }
