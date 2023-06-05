@@ -342,23 +342,13 @@ int Collection::createObject(std::string filepath, std::string documentName, jso
     {
         std::string workingPath = filepath + "/" + this->getCollectionName(); // workingPath = ./database/[username]/[collectionName]
 
-        // iterate through documents
-        for (auto i : *this->getDocuments())
-        {
-            // check if object exists in document, if so go into inner if statement
-            if (i.second.checkObject(workingPath, object["_id"]) == 1)
-            {
-                // make sure document that contains object matches document requested, else return error code
-                if (i.first == documentName)
-                {
-                    return this->getDocument(documentName)->createObject(workingPath, object);
-                }
-                else
-                {
-                    return -3;
-                }
-            }
-        }
+        // get the document for the given documentName
+        Document* document = this->getDocument(documentName);
+
+        // create the object within the document
+        int result = document->createObject(workingPath, object);
+
+        return result;
     }
     // if document does not exist, creates noew document to store object.
     else

@@ -1,19 +1,19 @@
 {
-    "users":[
+    "users": [
         {
-            "username": "",
             "email": "",
-            "password": "root"
+            "password": "root",
+            "username": ""
         },
         {
-            "username": "alice",
             "email": "alice@example.com",
-            "password": "m"
+            "password": "m",
+            "username": "alice"
         },
         {
-            "username": "bob",
             "email": "bob@example.com",
-            "password": "e"
+            "password": "e",
+            "username": "bob"
         }
     ]
 }

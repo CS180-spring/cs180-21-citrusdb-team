@@ -1,0 +1,16 @@
+{
+    "id": {
+        "Day": "12",
+        "Month": "Jan",
+        "Year": "1999",
+        "_id": "id",
+        "_originFile": "visits"
+    },
+    "unique": {
+        "Day": "25",
+        "Month": "Feb",
+        "Year": "2005",
+        "_id": "unique",
+        "_originFile": "visits"
+    }
+}

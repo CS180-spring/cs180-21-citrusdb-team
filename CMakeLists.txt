@@ -3,7 +3,7 @@ project(CitrusDB)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_subdirectory(frontend/citrusdb/src/components/API)
+#add_subdirectory(frontend/citrusdb/src/components/API)
 
 add_compile_options(-Wall -Wextra -Wpedantic -O0 -g)
 
