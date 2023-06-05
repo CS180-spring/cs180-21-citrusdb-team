@@ -9,3 +9,9 @@ Makefile
 testHarness
 /.vscode/
 *.out
+
+backend/userDatabase.hpp
+frontend/citrusdb/node_modules/
+/Crow/
+frontend/citrusdb/src/components/API/main
+frontend/citrusdb/src/components/API/CMakeFiles/

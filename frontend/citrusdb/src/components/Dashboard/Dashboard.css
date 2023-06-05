@@ -1,0 +1,69 @@
+.dash-wrapper {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    position: relative;
+    left: 5px;
+}
+
+.logo-text {
+    position: absolute;
+    text-align: left;
+    top: 100px;
+    left: 20px;
+    width: 100%
+}
+
+.profile-text {
+    position: absolute;
+    text-align: right;
+    top: 100px;
+    width: 100%;
+    right: 50px;
+}
+
+.edit-profile {
+    position: absolute;
+    text-align: right;
+    top: 150px;
+    right: 32px;
+}
+
+.logout {
+    position: absolute;
+    text-align: right;
+    top: 180px;
+    right: 42px;
+}
+
+.box {
+    position: absolute;
+    height: 50%;
+    width: 60%;
+    background-color: bisque;
+    top: 40%;
+    left: 20%;
+    right: 25%;
+}
+
+.crud-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    width: 5%;
+    background-color: beige;
+}
+
+#filter {
+    position: absolute;
+    top: 35%;
+    left: 20%;
+}
