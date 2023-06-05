@@ -1,5 +1,5 @@
-#ifndef DOCUMENT_HPP
-#define DOCUMENT_HPP
+#ifndef DOCUMENT_HPP 
+#define DOCUMENT_HPP 
 #include <string>
 #include <fstream>
 #include "./nlohmann/json.hpp"

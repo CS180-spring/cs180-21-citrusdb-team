@@ -1,5 +1,5 @@
-#ifndef COLLECTION_HPP
-#define COLLECTION_HPP
+#ifndef COLLECTION_HPP 
+#define COLLECTION_HPP 
 #include <string>
 #include <fstream>
 #include <sstream>
