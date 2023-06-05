@@ -1,60 +1,37 @@
 #include <crow.h>
-#include "../../../../../server/backend/databaseEngine.hpp"
+#include "../../../../../backend/databaseEngine.hpp"
 #include "../../../../../nlohmann/json.hpp"
-int main()
-{
+
+void handleRequest(const crow::request& req, crow::response& res) {
+    std::cout << "Received " << crow::method_name(req.method) << " request to " << req.url << std::endl;
+    
+    // Check if the request method is POST
+    if (req.method == crow::HTTPMethod::POST) {
+        res.code = 200;
+        res.write("test");
+    }
+    else {
+        // Set the response status code to 405 (Method Not Allowed)
+        res.code = 405;
+        res.write("Only POST requests are allowed for this resource!");
+    }
+    
+    // Send the response
+    res.end();
+}
+
+
+int main() {
+    // Create a Crow server instance
     crow::SimpleApp app;
-    DatabaseEngine dbEngine;
-
-    // Route for creating a new user
-    CROW_ROUTE(app, "/create")
-    .methods("POST"_method)
-    ([&dbEngine](const crow::request& req) {
-        // Parse the request body as JSON
-        json body;
-        try {
-            body = json::parse(req.body);
-        } catch (const json::parse_error& e) {
-            // Return an error response if the body is not valid JSON
-            return crow::response(400, "Invalid JSON");
-        }
-
-        // Extract data from the JSON object
-        std::string username = body["username"].get<std::string>();
-        std::string email = body["email"].get<std::string>();
-        std::string password = body["password"].get<std::string>();
-
-        // Call the createUser function of DatabaseEngine
-        int result = dbEngine.createUser(username, email, password);
-
-        // Create a response with the serialized JSON body
-        crow::response response;
-        response.body = json({{"result", result}}).dump();
-        response.set_header("Content-Type", "application/json");
-
-        return response;
-    });
-
-    // Route for checking login credentials
-    CROW_ROUTE(app, "/login")
-        .methods("POST"_method)
-        ([&dbEngine](const crow::request& req) {
-            // Extract data from the request body
-            std::string username = req.body["username"].s();
-            std::string password = req.body["password"].s();
-
-            // Call the loginCheck function of DatabaseEngine
-            bool isValid = dbEngine.loginCheck(username, password);
-
-            // Return the result as a response
-            crow::json::wvalue response;
-            response["isValid"] = isValid;
-            return crow::response(crow::json::dump(response));
-        });
-
-
-    // Start the server
+    
+    // Define the route and bind it to the handleRequest function
+    CROW_ROUTE(app, "/")
+        .methods(crow::HTTPMethod::POST, crow::HTTPMethod::GET)(handleRequest);
+    
+    // Start the server on port 8080
     app.port(80).multithreaded().run();
-
+    
     return 0;
 }
+

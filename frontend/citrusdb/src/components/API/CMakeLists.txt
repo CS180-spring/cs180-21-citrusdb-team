@@ -11,12 +11,13 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 project(API)
 
 # Include the Crow library
-find_package(Crow REQUIRED)
+set(ASIO_INCLUDE_DIR "/home/ec2-user/asio-1.28.0/include")
+add_subdirectory(Crow)
 
 # Add the main executable target
 add_executable(
     main 
-    main.cpp
+    crow.cpp
     ../../../../../backend/document.cpp
     ../../../../../backend/collection.cpp
     ../../../../../backend/userDatabase.cpp
