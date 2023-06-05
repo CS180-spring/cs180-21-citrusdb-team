@@ -16,24 +16,25 @@ FetchContent_MakeAvailable(googletest)
 
 
 enable_testing()
-# add_executable(
-  # testHarness
-  # backend/jsonStrings.cpp
-  # backend/file.cpp
-  # test.cpp
-# )
+add_executable(
+  testHarness
+  backend/document.cpp
+  backend/collection.cpp
+  backend/userDatabase.cpp
+  backend/file.cpp
+  backend/databaseEngine.cpp
+)
 
 add_test(
   NAME testHarness
   COMMAND testHarness ${CMAKE_CURRENT_SOURCE_DIR}/database/people.json
 )
 
-# target_link_libraries(
-#   testHarness
-#   GTest::gtest_main
-# )
+target_link_libraries(
+  testHarness
+  GTest::gtest_main
+)
 
 include(GoogleTest)
-# gtest_discover_tests(testHarness)
-include_directories(json-develop/include)
+gtest_discover_tests(testHarness)
 
