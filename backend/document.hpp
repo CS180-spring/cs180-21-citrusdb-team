@@ -2,7 +2,7 @@
 #define DOCUMENT_HPP
 #include <string>
 #include <fstream>
-#include <./nlohmann/json.hpp>
+#include "./nlohmann/json.hpp"
 using json = nlohmann::ordered_json;
 
 class Document{

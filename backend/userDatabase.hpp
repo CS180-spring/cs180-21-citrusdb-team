@@ -7,7 +7,7 @@
 #include <string>
 #include <map>
 #include <filesystem>
-#include <./nlohmann/json.hpp>
+#include "./nlohmann/json.hpp"
 
 #include "collection.hpp"
 #include "document.hpp"

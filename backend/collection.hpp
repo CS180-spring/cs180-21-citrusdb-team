@@ -5,7 +5,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <filesystem>
-#include <./nlohmann/json.hpp>
+#include "./nlohmann/json.hpp"
 #include "document.hpp"
 using json = nlohmann::ordered_json;
 
