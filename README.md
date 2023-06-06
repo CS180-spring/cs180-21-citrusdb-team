@@ -2,10 +2,41 @@
 # Project-CS180
 
 Current Features:
-Upload files from one folder into the database.
-Check to see if a given filename is present in the database.
-Output the contents of a file to the console.
-Delete a file from the database.
+
+CRUD Users within a database
+
+CRUD Collections for each user
+
+CRUD Documents within each collection
+
+CRUD Objects within each collection/document
+
+Display collections for a user
+
+Display objects within a collection
+
 
 Current interface:
-Different operations are done by running different executables right now through console, feeding filenames/paths through when calling the executable.
+
+Terminal debugging program to showcase some functionality
+
+WebUI with server backend as main UI
+
+
+Burndown Chart:
+
+https://docs.google.com/spreadsheets/d/15lNfpu4njxuz5VRnp9C40rD1PtSyBdJu-cEY7Ww4XMs/edit?usp=sharing
+
+Responsibilities per person:
+
+Suhail: UserDatabase class and implementation
+
+Marcell: Database Engine class and implementation
+
+Benson: Collection class and implementation
+
+Justin: Document class and implementation
+
+Steven: Crow API implementation
+
+Ryan: React.js frontend design and implementation
