@@ -2,8 +2,8 @@
 #define DOCUMENT_HPP
 #include <string>
 #include <fstream>
-#include <./nlohmann/json.hpp>
-using json = nlohmann::ordered_json;
+#include "./nlohmann/json.hpp"
+using json = nlohmann::json;
 
 class Document{
 private:
@@ -11,6 +11,8 @@ private:
     std::string fileName;
     
 public:
+    Document() {}
+
     //basic constructor used to recreate a file if the server goes down.
     Document(std::string fileName);
 

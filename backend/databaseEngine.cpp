@@ -1,8 +1,7 @@
 #include "databaseEngine.hpp"
 
-void DatabaseEngine::writeToFile(const nlohmann::json &content) const
+void DatabaseEngine::writeToFile(const json &content) const
 {
-    using json = nlohmann::json;
     using namespace std;
     ofstream output;
     output.open("database/_metaDB.json");
@@ -227,9 +226,10 @@ std::unordered_map<std::string, Collection> *DatabaseEngine::getCollections(cons
     return users[username].getCollections();
 }
 
-int DatabaseEngine::createDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
+//using json = nlohmann::json_abi_v3_11_2::json
+int DatabaseEngine::createDocument(const std::string &username, std::string collection, std::string document, json object)
 {
-    return users[username].createDocument(collection, document, object);
+    return users[username].createDocument(collection, document, object.dump());
 }
 
 int DatabaseEngine::deleteDocument(const std::string &username, const std::string &collection, const std::string &document)
@@ -242,9 +242,9 @@ int DatabaseEngine::renameDocument(const std::string &username, const std::strin
     return users[username].renameDocument(collection, oldDoc, newDoc);
 }
 
-int DatabaseEngine::replaceDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
+int DatabaseEngine::replaceDocument(const std::string &username, const std::string &collection, const std::string &document, json object)
 {
-    return users[username].replaceDocument(collection, document, object);
+    return users[username].replaceDocument(collection, document, object.dump());
 }
 
 // should be fixed
@@ -253,9 +253,9 @@ int DatabaseEngine::replaceDocument(const std::string &username, const std::stri
 //     return users[username].getContent(collection, document);
 // }
 
-int DatabaseEngine::createObject(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
+int DatabaseEngine::createObject(const std::string &username, const std::string &collection, const std::string &document, json object)
 {
-    return users[username].createObject(collection, document, object);
+    return users[username].createObject(collection, document, object.dump());
 }
 
 int DatabaseEngine::deleteObject(const std::string &username, const std::string &collection, const std::string &document, const std::string &objectID)
@@ -263,7 +263,9 @@ int DatabaseEngine::deleteObject(const std::string &username, const std::string 
     return users[username].deleteObject(collection, document, objectID);
 }
 
+/*
 int DatabaseEngine::updateDocument(const std::string &username, const std::string &collection, const std::string &document, nlohmann::json object)
 {
     return users[username].updateDocument(collection, document, object);
 }
+*/

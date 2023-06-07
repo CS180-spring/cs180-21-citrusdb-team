@@ -7,12 +7,12 @@
 #include <string>
 #include <map>
 #include <filesystem>
-#include <./nlohmann/json.hpp>
+#include "./nlohmann/json.hpp"
 
 #include "collection.hpp"
 #include "document.hpp"
 
-using json = nlohmann::ordered_json;
+using json = nlohmann::json;
 
 class UserDatabase{
     private:
@@ -24,6 +24,9 @@ class UserDatabase{
         std::unordered_map<std::string, Collection> collections;
 
     public:
+
+        UserDatabase() {}
+        
         //only takes databaseName in as input, all ofther information gathered from metadata file within the userDatabase
         UserDatabase(std::string databaseName);
 
@@ -55,11 +58,11 @@ class UserDatabase{
         //start functions that are passthroughs to Collection
         int renameCollection(std::string oldCollectionName, std::string newCollectionName);
 
-        int createDocument(std::string collectionName, std::string documentName, json content);
+        int createDocument(std::string collectionName, std::string documentName, std::string content);
 
         int deleteDocument(std::string collectionName, std::string documentName);
 
-        int replaceDocument(std::string collectionName, std::string documentName, json content);
+        int replaceDocument(std::string collectionName, std::string documentName, std::string content);
 
         json displayObjects(std::string collectionName);
         
@@ -71,7 +74,7 @@ class UserDatabase{
 
         int renameDocument(std::string collectionName, std::string oldDocumentName, std::string newDocumentName);
 
-        int createObject(std::string collectionName,std::string documentName, json object);
+        int createObject(std::string collectionName,std::string documentName, std::string object);
 
         int deleteObject(std::string collectionName, std::string documentName, std::string objectID);
 };

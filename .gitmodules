@@ -1,3 +1,6 @@
 [submodule "googletest"]
 	path = googletest
 	url = https://github.com/google/googletest
+[submodule "frontend/citrusdb/src/components/API/Crow"]
+	path = frontend/citrusdb/src/components/API/Crow
+	url = https://github.com/CrowCpp/Crow.git

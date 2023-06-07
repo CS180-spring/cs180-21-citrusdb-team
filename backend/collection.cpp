@@ -205,7 +205,7 @@ bool Collection::checkDocument(std::string documentName){
 }
 
 Document* Collection::getDocument(std::string documentName){
-    return &(*this->getDocuments())[documentName];
+    return &((*this->getDocuments())[documentName]);
 }
 
 std::string Collection::getCollectionName(){
@@ -314,6 +314,8 @@ int Collection::createObject(std::string filepath,std::string documentName, json
     else{
         return this->createDocument(filepath, documentName, object);
     }
+
+    return -4;
 }
 
 int Collection::deleteObject(std::string filepath, std::string documentName, std::string objectID){
