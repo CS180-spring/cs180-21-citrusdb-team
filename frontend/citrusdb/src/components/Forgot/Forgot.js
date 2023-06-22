@@ -5,6 +5,7 @@ import './Forgot.css';
 
 function Forgot() {
     const [username, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState(''); // TODO: implement email functionality [optional
     const navigate = useNavigate();
 
     const handleForgot = (event) => {
@@ -18,12 +19,16 @@ function Forgot() {
     return(
         <div className="forgot-wrapper">
                 <h1>CitrusDB</h1>
-                <h2>Register</h2>
+                <h2>Forgot Password</h2>
                 <img src={UCRLOGO} alt="UCRLOGO.png"/>
                 <form onSubmit={handleForgot}>
                     <label>
-                        <p>Username/Email</p>
+                        <p>Username</p>
                         <input type="text" onChange={e => setUserName(e.target.value)} />
+                    </label>
+                    <label>
+                        <p>Email</p>
+                        <input type="text" onChange={e => setUserEmail(e.target.value)} />
                     </label>
                     <br />
                     <button type="submit" id="forgotPageButton" disabled={disableButton}>Send Recovery!</button>
