@@ -12,6 +12,7 @@
 .logo {
     position: relative;
     left: 5px;
+    top: 5px;
 }
 
 .logo-text {
@@ -27,21 +28,21 @@
     text-align: right;
     top: 100px;
     width: 100%;
-    right: 50px;
+    right: 25px;
 }
 
 .edit-profile {
     position: absolute;
     text-align: right;
     top: 150px;
-    right: 32px;
+    right: 10px;
 }
 
 .logout {
     position: absolute;
     text-align: right;
     top: 180px;
-    right: 42px;
+    right: 20px;
 }
 
 .box {
@@ -58,7 +59,7 @@
     position: absolute;
     top: 50%;
     left: 5%;
-    width: 5%;
+    width: 10%;
     background-color: beige;
 }
 
@@ -66,4 +67,10 @@
     position: absolute;
     top: 35%;
     left: 20%;
+}
+
+.popup-wrapper {
+    position: absolute;
+    right: 50%;
+    left: 45%;
 }
